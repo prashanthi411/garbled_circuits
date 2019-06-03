@@ -5,7 +5,7 @@
 
 int main(){
 	//Open required files
-	FILE *randomx, *public, *c_out, *enc_messages;
+	FILE *randomx, *public, *private_b, *enc_messages *message;
 	//randomx = fopen("randomx.txt", "r"); //file to store randomly generated x_0, x_1
 	//public = fopen("public_key.txt", "r"); //file containing Alice's public key
 	c_out = fopen("bob_c.txt", "w"); //stores c = (x_b + k^e) mod n
