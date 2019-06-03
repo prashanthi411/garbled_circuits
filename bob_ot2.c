@@ -5,7 +5,7 @@
 
 int main(){
 	//Open required files
-	FILE *randomx, *public, *private_b, *enc_messages *message;
+	FILE *c_out, *private_b, *enc_messages, *message;
 	//randomx = fopen("randomx.txt", "r"); //file to store randomly generated x_0, x_1
 	//public = fopen("public_key.txt", "r"); //file containing Alice's public key
 	c_out = fopen("bob_c.txt", "w"); //stores c = (x_b + k^e) mod n
@@ -32,8 +32,7 @@ int main(){
 	gmp_fscanf(enc_messages, "%Zd", m_0);
 	gmp_fscanf(enc_messages, "%Zd", m_1);
 
-	//closing public_key.txt and randomx.txt
-	fclose(public);
+	//closing enc_messages.txt
 	fclose(enc_messages);
 
 	//Reading b chosen in bob_ot1.c
