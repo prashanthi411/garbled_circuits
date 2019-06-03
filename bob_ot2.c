@@ -5,11 +5,10 @@
 
 int main(){
 	//Open required files
-	FILE *c_out, *private_b, *enc_messages, *message;
+	FILE *private_b, *enc_messages, *message;
 	//randomx = fopen("randomx.txt", "r"); //file to store randomly generated x_0, x_1
 	//public = fopen("public_key.txt", "r"); //file containing Alice's public key
-	c_out = fopen("bob_c.txt", "w"); //stores c = (x_b + k^e) mod n
-	private_b = fopen("bob_private.txt","w"); //File contains random k generated in bob_ot1.c
+	private_b = fopen("bob_private.txt","r"); //File contains random k generated in bob_ot1.c
 	enc_messages = fopen("enc_messages.txt", "r"); // to write m'_0 (= m_0 - v_0) and m'_1 (= m_1 - v_1) to "enc_messages.txt"
 	message = fopen("bob_message.txt","w");
 	
