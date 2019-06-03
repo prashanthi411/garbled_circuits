@@ -79,6 +79,8 @@ int main(void)
 	mpz_out_str(public,10,n);
 	fprintf(public,"\n");
 	mpz_out_str(public,10,e);
+	mpz_out_str(public,10,n);
+	fprintf(public,"\n");
 	mpz_out_str(private,10,d);
 
 	mpz_clear(rem);
