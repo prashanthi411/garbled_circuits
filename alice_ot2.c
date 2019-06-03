@@ -35,4 +35,18 @@ int main(){
 	gmp_fprintf(fp4, "%Zd", m_0); //writing m'_0 to file "enc_messages.txt"
 	gmp_fprintf(fp4, "\n");
 	gmp_fprintf(fp4, "%Zd", m_1); //writing m'_1 to file "enc_messages.txt"
+	fclose(fp1);
+	fclose(fp2);
+	fclose(fp3);
+	fclose(fp4);
+	fclose(fp5);
+	mpz_clear(x_0);
+	mpz_clear(x_1);
+	mpz_clear(v_0);
+	mpz_clear(v_1);
+	mpz_clear(n);
+	mpz_clear(d);
+	mpz_clear(c);
+	mpz_clear(m_0);
+	mpz_clear(m_1);
 }
