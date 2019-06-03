@@ -4,10 +4,11 @@ ciphertext.txt contains the ciphertext
 plaintext.txt contains the plaintext
 deciphertext.txt contains the deciphered ciphertext
 
-first run keygen.py to generate e,d and n
+first run keygen.c to generate e,d and n
 add the desired(integer) plaintext to plaintext.txt
 run encrypt.py to generate ciphertext in ciphertext.txt
 run decrypt.py to generate deciphered ciphertext in deciphertext.txt
+rsa.h contains common functions required in rsa implementation using gmp
 
 /////// Prashanthi (03/06/19)
 randomx.txt is the file to store randomly generated x_0, x_1 (on the next line).
