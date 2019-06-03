@@ -15,4 +15,8 @@ int main(){
 	gmp_fprintf(fptr, "%Zd", x_0); //writing x_0 to file "randomx.txt"
 	gmp_fprintf(fptr, "\n");
 	gmp_fprintf(fptr, "%Zd", x_1); //writing x_1 to file "randomx.txt"
+	fclose(fptr);
+	mpz_clear(x_0);
+	mpz_clear(x_1);
+
 }
