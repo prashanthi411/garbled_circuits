@@ -179,6 +179,7 @@ int m_r(mpz_t n){
 	return 0;
 }
 
+//check if p is prime
 int is_prime(mpz_t p){
 	//perform miller-rabin test 20 times, should pass every time if prime
 	for(int i=0;i<20;i++){
