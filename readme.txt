@@ -1,5 +1,5 @@
 public_key.txt contains n in the first line and e in the second line
-private_key.txt contains d
+private_key.txt contains n and d
 ciphertext.txt contains the ciphertext
 plaintext.txt contains the plaintext
 deciphertext.txt contains the deciphered ciphertext
