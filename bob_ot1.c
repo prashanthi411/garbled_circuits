@@ -41,7 +41,7 @@ int main(){
 
 	//closing public_key.txt and randomx.txt
 	fclose(public);
-	fclose(randomx)
+	fclose(randomx);
 
 	//Bob chooses b
 	printf("Enter b: ");
