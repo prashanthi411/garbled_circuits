@@ -47,7 +47,7 @@ int main(){
 	//Writing c to bob_c.txt
 	mpz_out_str(message,10,m_b);
 
-	fclose(message);
+	fclose(message); 
 	mpz_clear(k);
 	mpz_clear(c);
 	mpz_clear(m_b);
