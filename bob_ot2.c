@@ -7,7 +7,7 @@ int main(){
 	//Open required files
 	FILE *private_b, *enc_messages, *message;
 	private_b = fopen("bob_private.txt","r"); //File contains random k generated in bob_ot1.c
-	enc_messages = fopen("enc_messages.txt", "r"); // to write m'_0 (= m_0 - v_0) and m'_1 (= m_1 - v_1) to "enc_messages.txt"
+	enc_messages = fopen("enc_messages.txt", "r"); // to read m'_0 (= m_0 - v_0) and m'_1 (= m_1 - v_1) to "enc_messages.txt"
 	message = fopen("bob_message.txt","w");
 	
 	//Variable initialisation
