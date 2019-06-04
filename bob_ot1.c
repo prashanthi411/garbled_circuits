@@ -60,7 +60,7 @@ int main(){
 	//calculating c=(x_b + (k^e)) mod n
 	pmod(c,k,e,n);
 	mpz_fdiv_r(temp,x_b,n);
-	mpz_add(c,k,temp);
+	mpz_add(c,c,temp);
 	mpz_fdiv_r(c,c,n);
 
 	//Writing c to bob_c.txt
