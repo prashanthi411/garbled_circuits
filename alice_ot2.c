@@ -33,12 +33,8 @@ int main(){
 	mpz_fdiv_r(v_0, v_0, n);
 	mpz_sub(v_1, c, x_1); //v_1 = c - x_1
 	mpz_fdiv_r(v_1, v_1, n);
-	gmp_printf("v_0 = %Zd", v_0);
-	gmp_printf("v_1 = %Zd", v_1);
 	mpz_powm(v_0, v_0, d, n); //v_0 = (c - x_0)^d mod n
 	mpz_powm(v_1, v_1, d, n); //v_1 = (c - x_1)^d mod n
-	gmp_printf("v_0 = %Zd", v_0);
-	gmp_printf("v_1 = %Zd", v_1);
 	gmp_fscanf(fp3, "%Zd", m_0); //extracting the value of m_0 (first string) from "strings.txt"
 	gmp_fscanf(fp3, "%Zd", m_1); //extracting the value of m_1 (second string) from "strings.txt"
 	mpz_sub(md_0, m_0, v_0); //m'_0 = m_0 - v_0
@@ -63,3 +59,4 @@ int main(){
 	mpz_clear(md_0);
 	mpz_clear(md_1);
 }
+
