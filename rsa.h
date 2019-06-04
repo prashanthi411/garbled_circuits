@@ -30,7 +30,7 @@ void gcd(mpz_t g,mpz_t a,mpz_t b){
 	mpz_clear(temp_2);
 }
 
-//Calculates a^t mod n and stores in b
+//Calculates a^t mod n and stores in b /******WRONG FUNCTION -- NEED TO UPDATE *******/
 void pmod(mpz_t b,mpz_t a,mpz_t t,mpz_t n){
 	mpz_t rem,temp,temp_2;
 	mpz_init(temp);
@@ -66,6 +66,7 @@ void pmod(mpz_t b,mpz_t a,mpz_t t,mpz_t n){
 	mpz_clear(temp_2);
 
 }
+/******WRONG FUNCTION -- NEED TO UPDATE**********/
 
 //calculates the multiplicative inverse of m in mod phi_n and stores in ans
 void mul_inv(mpz_t ans,mpz_t m,mpz_t phi_n){
