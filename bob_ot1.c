@@ -64,7 +64,7 @@ int main(){
 	mpz_clear(x_1);
 
 	//calculating c=(x_b + (k^e)) mod n
-	pmod(c,k,e,n);
+	mpz_powm(c,k,e,n);
 	mpz_fdiv_r(temp,x_b,n);
 	mpz_add(c,c,temp);
 	mpz_fdiv_r(c,c,n);
