@@ -6,8 +6,6 @@
 int main(){
 	//Open required files
 	FILE *private_b, *enc_messages, *message;
-	//randomx = fopen("randomx.txt", "r"); //file to store randomly generated x_0, x_1
-	//public = fopen("public_key.txt", "r"); //file containing Alice's public key
 	private_b = fopen("bob_private.txt","r"); //File contains random k generated in bob_ot1.c
 	enc_messages = fopen("enc_messages.txt", "r"); // to write m'_0 (= m_0 - v_0) and m'_1 (= m_1 - v_1) to "enc_messages.txt"
 	message = fopen("bob_message.txt","w");
@@ -23,9 +21,6 @@ int main(){
 
 	//Reading k generated in bob_ot1.c
 	gmp_fscanf(private_b, "%Zd", k);
-	
-	//Reading n from public_key.txt
-	//gmp_fscanf(public, "%Zd", n);
 
 	//reading x_0 and x_1 from randomx.txt
 	gmp_fscanf(enc_messages, "%Zd", m_0);
@@ -46,8 +41,8 @@ int main(){
 	mpz_clear(m_0);
 	mpz_clear(m_1);
 
-	//calculating m_b=m_b-k
-	mpz_sub(m_b,m_b,k);
+	//calculating m_b=m_b+k
+	mpz_add(m_b,m_b,k);
 
 	//Writing c to bob_c.txt
 	mpz_out_str(message,10,m_b);

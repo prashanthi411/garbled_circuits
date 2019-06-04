@@ -23,8 +23,14 @@ int main(){
 	mpz_init(e);
 	mpz_init(n);
 	mpz_init(temp);
+	int seed;
+	
+	printf("Enter seed: ");
+	scanf("%d",&seed);
+	
 	gmp_randstate_t state;
 	gmp_randinit_mt(state);
+	gmp_randseed_ui(state,seed);
 
 	//Generating random k
 	mpz_urandomb(k, state, 500);
