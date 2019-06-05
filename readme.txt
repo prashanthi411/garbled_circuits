@@ -1,7 +1,9 @@
+rsa.h contains common functions required for rsa implementation using gmp
+
+1. run keygen.c (executable --> keys) to generate e,d and n
+
 public_key.txt contains n in the first line and e in the second line
 private_key.txt contains n in the first line and d in the second line
-rsa.h contains common functions required for rsa implementation using gmp
-1. run keygen.c to generate e,d and n
 
 2. run alice_ot1.c (executable --> alice1) to generate x_0 and x_1
 
