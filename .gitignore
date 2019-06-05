@@ -3,3 +3,7 @@ bob_c.tct
 bob_private.txt
 enc_messages.txt
 randomx.txt
+ciphertext.txt
+deciphertext.txt
+plaintext.txt
+bob_c.txt
