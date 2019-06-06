@@ -1,5 +1,7 @@
 rsa.h contains common functions required for rsa implementation using gmp
 
+strings.txt contains the two messages, the first corresponding to Bob selecting 0 and the second corresponding to him selecting 1.
+
 1. run keygen.c (executable --> keys) to generate e,d and n
 
 public_key.txt contains n in the first line and e in the second line
