@@ -57,7 +57,7 @@ int main(int argc, char** argv)
 		send(bob, buffer, strlen(buffer), 0);
 		
 		if((strncmp(buffer,"exit",4)) == 0){
-			printf("Exiting....");
+			printf("Exiting....\n");
 			break;
 		}
 	}

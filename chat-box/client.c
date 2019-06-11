@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 		recv(alice, buffer, 350, 0);
 		printf("alice: %s\n",buffer);
 		if((strncmp(buffer,"exit",4)) == 0){
-			printf("Exiting....");
+			printf("Exiting....\n");
 			break;
 		}
 	}
