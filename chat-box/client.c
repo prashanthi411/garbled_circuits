@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 
 		//bzero(buffer, sizeof(buffer));
 
-		recv(alice, &buffer, strlen(buffer), 0);
+		recv(alice, buffer, 350, 0);
 		printf("alice: %s\n",buffer);
 		if((strncmp(buffer,"exit",4)) == 0){
 			printf("Exiting....");
