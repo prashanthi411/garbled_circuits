@@ -47,6 +47,8 @@ int main(int argc, char** argv)
 	char *buffer;
 	buffer=(char*)malloc(350*sizeof(char));
 	while(1){
+		bzero(buffer, strlen(buffer));
+
 		recv(bob, buffer, 350, 0);
 		printf("bob: %s\n",buffer);
 

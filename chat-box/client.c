@@ -30,6 +30,8 @@ int main(int argc, char** argv)
 	char *buffer;
 	buffer=(char*)malloc(350*sizeof(char));
 	while(1){
+		bzero(buffer, sizeof(buffer));
+
 		printf("Bob: ");
 		scanf("%s",buffer);
 		send(alice, buffer, strlen(buffer), 0);
