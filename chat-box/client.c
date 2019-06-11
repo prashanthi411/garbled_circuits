@@ -34,7 +34,7 @@ int main(int argc, char** argv)
 		scanf("%s",buffer);
 		send(alice, buffer, strlen(buffer), 0);
 
-		//bzero(buffer, sizeof(buffer));
+		bzero(buffer, sizeof(buffer));
 
 		recv(alice, buffer, 350, 0);
 		printf("alice: %s\n",buffer);

@@ -50,7 +50,7 @@ int main(int argc, char** argv)
 		recv(bob, buffer, 350, 0);
 		printf("bob: %s\n",buffer);
 
-		//bzero(buffer, strlen(buffer));
+		bzero(buffer, strlen(buffer));
 		
 		printf("Alice: ");
 		scanf("%s",buffer);
