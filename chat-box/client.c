@@ -27,6 +27,23 @@ int main(int argc, char** argv)
 		exit(-1);
 	}
 
+	char *test;
+	test=(char *)malloc(8*sizeof(char));
+
+/*******Test***************
+ Recieving string from Alice and printing it
+****************************/
+	recv(alice,test, 8, 0);
+	bzero(test, strlen(test));
+
+
+	recv(alice,test, 8, 0);
+	bzero(test, strlen(test));
+
+/*************************
+		End Of Test
+**************************/
+
 	char *buffer;
 	buffer=(char*)malloc(350*sizeof(char));
 	while(1){

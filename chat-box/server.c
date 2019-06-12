@@ -26,10 +26,7 @@ int main(int argc, char** argv)
 	FILE *ftest=fopen("test.txt","r");
 	char *test;
 	test=(char *)malloc(8*sizeof(char));
-	fscanf(ftest,"%s",test);
-	printf("%s",test);
-	fscanf(ftest,"%s",test);
-	printf("%s",test);
+	
 	if((bind(alice, (struct sockaddr*)&server_alice, sizeof(struct sockaddr_in))) == -1){
 		printf("Server binding unsuccessful!\n");
 		exit(-1);
@@ -53,6 +50,28 @@ int main(int argc, char** argv)
 
 	char *buffer;
 	buffer=(char*)malloc(350*sizeof(char));
+	
+/*******Test***************
+ Sending string read from a file to Bob
+****************************/
+	
+	fscanf(ftest,"%s",test);
+	printf("%s",test);
+
+	send(bob,test, strlen(test),0);
+	bzero(test, strlen(test));
+
+
+	fscanf(ftest,"%s",test);
+	printf("%s",test);
+
+	send(bob,test, strlen(test),0);
+	bzero(test, strlen(test));
+/*************************
+		End Of Test
+**************************/
+
+
 	while(1){
 		bzero(buffer, strlen(buffer));
 
