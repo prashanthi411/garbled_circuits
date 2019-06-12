@@ -72,8 +72,10 @@ int main(int argc, char** argv)
 	enc_messages = fopen("enc_messages.txt", "w");
 
 	recv(alice, buffer, 350, 0);
-	fprintf(enc_messages,"%s\n",buffer);
+	fprintf(enc_messages,"%s",buffer);
 	bzero(buffer, strlen(buffer));
+
+	fprintf(enc_messages,"\n");
 
 	recv(alice, buffer, 350, 0);
 	fprintf(enc_messages,"%s",buffer);
