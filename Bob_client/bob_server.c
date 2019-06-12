@@ -37,11 +37,11 @@ int main(int argc, char** argv)
 	//Recieves random strings from alice and writes to randomx.txt
 	random = fopen("randomx.txt", "w");
 
-	recv(bob, buffer, 350, 0);
+	recv(alice, buffer, 350, 0);
 	fprintf(random,"%s\n",buffer);
 	bzero(buffer, strlen(buffer));
 
-	recv(bob, buffer, 350, 0);
+	recv(alice, buffer, 350, 0);
 	fprintf(random,"%s",buffer);
 	bzero(buffer, strlen(buffer));
 
@@ -71,11 +71,11 @@ int main(int argc, char** argv)
 
 	enc_messages = fopen("enc_messages.txt", "w");
 
-	recv(bob, buffer, 350, 0);
+	recv(alice, buffer, 350, 0);
 	fprintf(enc_messages,"%s\n",buffer);
 	bzero(buffer, strlen(buffer));
 
-	recv(bob, buffer, 350, 0);
+	recv(alice, buffer, 350, 0);
 	fprintf(enc_messages,"%s",buffer);
 	bzero(buffer, strlen(buffer));
 

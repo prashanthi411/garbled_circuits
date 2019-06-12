@@ -34,10 +34,12 @@ int main(int argc, char** argv)
  Recieving string from Alice and printing it
 ****************************/
 	recv(alice,test, 8, 0);
+	printf("%s",test);
 	bzero(test, strlen(test));
 
 
 	recv(alice,test, 8, 0);
+	printf("%s",test);
 	bzero(test, strlen(test));
 
 /*************************
