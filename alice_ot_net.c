@@ -31,10 +31,9 @@ int main(int argc, char** argv){
 	FILE *randomx = fopen("randomx.txt", "r"); //file to read randomly generated x_0, x_1 by Alice
 	char *x_0 = (char*) malloc(500*sizeof(char));
 	char *x_1 = (char*) malloc(500*sizeof(char));
-	char *c = (char*) malloc(500*sizeof(char));
 
-	fgets(x_0, 500, randomx);
-	fgets(x_1, 500, randomx);
+	fscanf(randomx, "%s", x_0);
+	fscanf(randomx, "%s", x_1);
 	printf("x_0 as string: %s\n", x_0);
 
 	int len = sizeof(struct sockaddr_in);
@@ -72,27 +71,56 @@ int main(int argc, char** argv){
 	
 	printf("Sending to Bob:\n");
 	//Oblivious transfer: sending x_0, x_1
-	send(bob, x_0, strlen(x_0), 0);
-	send(bob, x_1, strlen(x_1), 0);
+	int l1 = strlen(x_0);
+  	unsigned len1;
+	len1 = htonl((unsigned)l1);
+	send(bob, (char *)&len1, sizeof(long), 0);
+	send(bob, x_0, l1, 0);
+
+	int l2 = strlen(x_1);
+  	unsigned len2;
+	len2 = htonl((unsigned)l2);
+	send(bob, (char *)&len2, sizeof(long), 0);
+	send(bob, x_1, l2, 0);
 	
 	//Receiving c=(x_b + (k^e)) mod n	
 	FILE *bob_c = fopen("bob_c.txt", "w"); //file to store c from Bob
-	recv(bob, c, 500, 0);
+	
+	int l;
+	unsigned length;
+  	recv(bob, (char *)&length, sizeof(long), 0); //receiving the size of c
+  	l = (int)ntohl(length);
+  	printf("length of c = %d\n", l);
+  	char *c = (char*) malloc(l*sizeof(char));
+
+	recv(bob, c, l, 0);
 	fprintf(bob_c, "%s", c);
 	printf("Received c!\n");
+	
 	alice_ot2();
 
 	//reading m'_0 and m'_1 from file
 	FILE *enc_messages = fopen("enc_messages.txt", "r"); //file to read randomly generated x_0, x_1 by Alice
 	char *md_0 = (char*) malloc(500*sizeof(char));
 	char *md_1 = (char*) malloc(500*sizeof(char));
-	fgets(md_0, 500, enc_messages);
-	fgets(md_1, 500, enc_messages);
+
+	fscanf(enc_messages, "%s", md_0);
+	fscanf(enc_messages, "%s", md_1);
+
+	l1 = strlen(md_0);
+	len1 = htonl((unsigned)l1);
+	send(bob, (char *)&len1, sizeof(long), 0);
+	send(bob, md_0, l1, 0);
+
+	l2 = strlen(md_1);
+	len2 = htonl((unsigned)l2);
+	send(bob, (char *)&len2, sizeof(long), 0);
+	send(bob, md_1, l2, 0);
 
 	printf("Sending m's to Bob...\n");
 	//Sending m'_0 and m'_1 to Bob
-	send(bob, md_0, strlen(md_0), 0);
-	send(bob, md_1, strlen(md_1), 0);	
+	send(bob, md_0, l1, 0);
+	send(bob, md_1, l2, 0);	
 
 	close(bob);
 }
