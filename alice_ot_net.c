@@ -74,13 +74,13 @@ int main(int argc, char** argv){
 	int l1 = strlen(x_0);
   	unsigned len1;
 	len1 = htonl((unsigned)l1);
-	send(bob, (char *)&len1, sizeof(long), 0);
+	send(bob, (char *)&len1, sizeof(long), 0); //sending the length of x_0
 	send(bob, x_0, l1, 0);
 
 	int l2 = strlen(x_1);
   	unsigned len2;
 	len2 = htonl((unsigned)l2);
-	send(bob, (char *)&len2, sizeof(long), 0);
+	send(bob, (char *)&len2, sizeof(long), 0); //sending length of x_1
 	send(bob, x_1, l2, 0);
 	
 	//Receiving c=(x_b + (k^e)) mod n	
@@ -106,21 +106,18 @@ int main(int argc, char** argv){
 
 	fscanf(enc_messages, "%s", md_0);
 	fscanf(enc_messages, "%s", md_1);
+	
+	printf("Sending m's to Bob...\n");
 
 	l1 = strlen(md_0);
 	len1 = htonl((unsigned)l1);
-	send(bob, (char *)&len1, sizeof(long), 0);
+	send(bob, (char *)&len1, sizeof(long), 0); //sending length of md_0
 	send(bob, md_0, l1, 0);
 
 	l2 = strlen(md_1);
 	len2 = htonl((unsigned)l2);
-	send(bob, (char *)&len2, sizeof(long), 0);
+	send(bob, (char *)&len2, sizeof(long), 0); //sending length of md_1
 	send(bob, md_1, l2, 0);
-
-	printf("Sending m's to Bob...\n");
-	//Sending m'_0 and m'_1 to Bob
-	send(bob, md_0, l1, 0);
-	send(bob, md_1, l2, 0);	
 
 	close(bob);
 }
