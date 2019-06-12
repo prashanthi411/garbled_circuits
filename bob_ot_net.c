@@ -73,7 +73,7 @@ int main(int argc, char** argv)
 
 	//Sending c
 	printf("Sending c...\n");
-	send(alice, (char *)&len, sizeof(long), 0);
+	send(alice, (char *)&len, sizeof(long), 0); //sending the size of c
 	send(alice, c, l, 0);
 	printf("c has been sent!\n");
 	FILE *enc_messages = fopen("enc_messages.txt", "w");
@@ -83,11 +83,11 @@ int main(int argc, char** argv)
 
 	//Receive m'_0 and m'_1
 
-  	recv(alice, (char *)&len1, sizeof(long), 0); //receiving the size of x_0
+  	recv(alice, (char *)&len1, sizeof(long), 0); //receiving the size of md_0
   	l1 = (int)ntohl(len1);
 	recv(alice, md_0, l1, 0);
 
-  	recv(alice, (char *)&len2, sizeof(long), 0); //receiving the size of x_1
+  	recv(alice, (char *)&len2, sizeof(long), 0); //receiving the size of md_1
   	l2 = (int)ntohl(len2);
 	recv(alice, md_1, l2, 0);
 	printf("Received from Alice\n");
