@@ -23,6 +23,13 @@ int main(int argc, char** argv)
 	server_alice.sin_addr.s_addr=INADDR_ANY;
 	bzero(&server_alice.sin_zero, 8);
 
+	FILE *ftest=fopen("test.txt","r");
+	char *test;
+	test=(char *)malloc(8*sizeof(char));
+	fscanf(ftest,"%s",test);
+	printf("%s",test);
+	fscanf(ftest,"%s",test);
+	printf("%s",test);
 	if((bind(alice, (struct sockaddr*)&server_alice, sizeof(struct sockaddr_in))) == -1){
 		printf("Server binding unsuccessful!\n");
 		exit(-1);
