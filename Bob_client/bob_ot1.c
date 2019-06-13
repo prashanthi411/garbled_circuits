@@ -40,8 +40,6 @@ int main(){
 	gmp_fscanf(public, "%Zd", n);
 	gmp_fscanf(public, "%Zd", e);
 
-	gmp_printf("n = %Zd\n",n);
-
 	//reading x_0 and x_1 from randomx.txt
 	gmp_fscanf(randomx, "%Zd", x_0);
 	gmp_fscanf(randomx, "%Zd", x_1);
