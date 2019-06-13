@@ -26,7 +26,7 @@ int main(){
 	gmp_fscanf(enc_messages, "%Zd", m_0);
 	gmp_printf("m_0 = %Zd",m_0);
 	gmp_fscanf(enc_messages, "%Zd", m_1);
-	gmp_printf("m_0 = %Zd",m_0);
+	gmp_printf("m_1 = %Zd",m_1);
 
 	//closing enc_messages.txt
 	fclose(enc_messages);

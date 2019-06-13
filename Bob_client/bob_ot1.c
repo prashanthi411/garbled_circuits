@@ -5,7 +5,6 @@
 
 int main(){
 	//Open required files
-	printf("bob1 executing\n");
 	FILE *randomx, *public, *c_out, *k_out, *enc_messages;
 	randomx = fopen("randomx.txt", "r"); //file to store randomly generated x_0, x_1
 	public = fopen("public_key.txt", "r"); //file containing Alice's public key
