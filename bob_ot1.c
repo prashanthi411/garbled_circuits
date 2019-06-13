@@ -51,6 +51,11 @@ int main(){
 	//Bob chooses b
 	printf("Enter b: ");
 	scanf("%d",&b);
+	while((b != 0) && (b != 1)){
+		printf("b can only be 1 or 0!\n");
+		printf("Enter b: ");
+		scanf("%d",&b);
+	}
 	fprintf(k_out,"\n%d",b);
 	fclose(k_out);
 
