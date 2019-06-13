@@ -31,6 +31,10 @@ the executable for bob_ot2.c is bob2
 
 Instructions to use remote OT Protocol
 
+Server:-
+
+Add the two numbers that are to be chosen from to strings.txt.
+
 run alice_server from the command line of the device that needs to send the numbers.
 
 A port number should be provided as a command line argument.
