@@ -45,6 +45,8 @@ Example
 
 This will allow the program to accept connections on port number <port> of the device.
 
+Client:-
+
 Run bob_client from the command line of the device that needs to receive the numbers.
 
 The ip address of the device running the server and the port number it as accepting connections on should be provided as comand line arguments.
