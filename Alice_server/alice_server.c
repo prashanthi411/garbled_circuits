@@ -63,7 +63,7 @@ int main(int argc, char** argv)
 	}
 
 	//Waits for child process to finish
-	waitpid(pid,0,0);
+	wait(NULL);
 
 	random=fopen("randomx.txt","r");
 	
@@ -75,12 +75,16 @@ int main(int argc, char** argv)
 	send(bob, buffer, strlen(buffer), 0);
 	bzero(buffer, strlen(buffer));
 
+	fclose(random);
+
 	
 	c_bob = fopen("bob_c.txt", "w"); //stores c = (x_b + k^e) mod n
 
 	recv(bob, buffer, 350, 0);
 	fprintf(c_bob,"%s",buffer);
 	bzero(buffer, strlen(buffer));
+
+	fclose(c_bob);
 
 
 	//Fork to execute alice2
@@ -96,7 +100,7 @@ int main(int argc, char** argv)
 	}
 
 	//Waits for child process to finish
-	waitpid(pid,0,0);
+	wait(NULL);
 
 	enc_messages = fopen("enc_messages.txt", "r");
 
@@ -107,6 +111,8 @@ int main(int argc, char** argv)
 	fscanf(enc_messages,"%s",buffer);
 	send(bob, buffer, strlen(buffer), 0);
 	bzero(buffer, strlen(buffer));
+
+	fclose(enc_messages);
 
 	close(bob);
 }
