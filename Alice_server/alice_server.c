@@ -76,6 +76,7 @@ int main(int argc, char** argv)
 	random=fopen("randomx.txt","r");
 	
 	fscanf(random,"%s",buffer);
+	strcat(buffer,"\n");
 	send(bob, buffer, strlen(buffer), 0);
 	bzero(buffer, strlen(buffer));
 
@@ -116,6 +117,7 @@ int main(int argc, char** argv)
 	enc_messages = fopen("enc_messages.txt", "r");
 
 	fscanf(enc_messages,"%s",buffer);
+	strcat(buffer,"\n");
 	send(bob, buffer, strlen(buffer), 0);
 	bzero(buffer, strlen(buffer));
 

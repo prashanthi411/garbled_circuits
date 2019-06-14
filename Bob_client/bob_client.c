@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 	random = fopen("randomx.txt", "w");
 
 	recv(alice, buffer, 350, 0);
-	fprintf(random,"%s\n",buffer);
+	fprintf(random,"%s",buffer);
 	bzero(buffer, strlen(buffer));
 
 	recv(alice, buffer, 350, 0);
