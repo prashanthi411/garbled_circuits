@@ -41,8 +41,7 @@ int main(){
 	gmp_fscanf(fp3, "%Zd", m_1); //extracting the value of m_1 (second string) from "strings.txt"
 	mpz_sub(md_0, m_0, v_0); //m'_0 = m_0 - v_0
 	mpz_sub(md_1, m_1, v_1); //m'_1 = m_1 - v_1
-	gmp_fprintf(fp4, "%Zd\n", md_0); //writing m'_0 to file "enc_messages.txt"
-	gmp_fprintf(fp4, "\n");
+	gmp_fprintf(fp4, "%Zd\0\n", md_0); //writing m'_0 to file "enc_messages.txt"
 	gmp_fprintf(fp4, "%Zd", md_1); //writing m'_1 to file "enc_messages.txt"
 	fclose(fp1);
 	fclose(fp2);
