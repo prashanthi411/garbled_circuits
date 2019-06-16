@@ -76,13 +76,12 @@ int main(int argc, char** argv)
 	random=fopen("randomx.txt","r");
 	
 	fscanf(random,"%s",buffer);
-	strcat(buffer,"\n");
-	send(bob, buffer, strlen(buffer), 0);
+	send(bob, buffer, 350, 0);
 	bzero(buffer, strlen(buffer));
 
 	fscanf(random,"%s",buffer);
-	send(bob, buffer, strlen(buffer), 0);
-	bzero(buffer, strlen(buffer));
+	send(bob, buffer, 350, 0);
+	bzero(buffer, 350);
 
 	fclose(random);
 	printf("Alice has sent randomly generated numbers\n");
@@ -117,13 +116,12 @@ int main(int argc, char** argv)
 	enc_messages = fopen("enc_messages.txt", "r");
 
 	fscanf(enc_messages,"%s",buffer);
-	strcat(buffer,"\n");
-	send(bob, buffer, strlen(buffer), 0);
-	bzero(buffer, strlen(buffer));
+	send(bob, buffer, 350, 0);
+	bzero(buffer, 350);
 
 	fscanf(enc_messages,"%s",buffer);
-	send(bob, buffer, strlen(buffer), 0);
-	bzero(buffer, strlen(buffer));
+	send(bob, buffer, 350, 0);
+	bzero(buffer, 350);
 
 	fclose(enc_messages);
 	printf("Encrypted messages sent to Bob\n");

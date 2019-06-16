@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 	random = fopen("randomx.txt", "w");
 
 	recv(alice, buffer, 350, 0);
-	fprintf(random,"%s",buffer);
+	fprintf(random,"%s\n",buffer);
 	bzero(buffer, strlen(buffer));
 
 	recv(alice, buffer, 350, 0);
@@ -83,7 +83,7 @@ int main(int argc, char** argv)
 	enc_messages = fopen("enc_messages.txt", "w");
 
 	recv(alice, buffer, 350, 0);
-	fprintf(enc_messages,"%s",buffer);
+	fprintf(enc_messages,"%s\n",buffer);
 	bzero(buffer, strlen(buffer));
 
 	//fprintf(enc_messages,"\n");
