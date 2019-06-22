@@ -31,14 +31,14 @@ void pad(char* plaintext){
 void de_pad(char* plaintext){
 	int pad_value,length;
 	length=strlen(plaintext);
-
+	char *padded;
 	pad_value = plaintext[length-1];
 	if(pad_value==0){
-		plaintext =  (char *)realloc((length-15)*sizeof(char));
+		plaintext = (char*) realloc(plaintext, (length-15)*sizeof(char));
 	}
 
 	else{
-		plaintext =  (char *)realloc((length-pad_value+1)*sizeof(char));
+		plaintext = (char*) realloc(plaintext, (length-pad_value+1)*sizeof(char));
 		strcpy(padded,plaintext);
 		for(int i=0;i<pad_value;i++){
 			padded[length+i]=(char)pad_value;
