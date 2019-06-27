@@ -46,7 +46,7 @@ int main(){
 	mpz_rrandomb(b1, state, 128);
 	mpz_rrandomb(c0, state, 128);
 	mpz_rrandomb(c1, state, 128);
-	mpz_rrandomb(iv, state, 128);
+	mpz_rrandomb(iv, state, 16);
 
 	//writing these to file
 	gmp_fprintf(alabel, "%Zd\n", a0);
@@ -64,13 +64,13 @@ int main(){
 	mpz_xor(key4, a1, b1);
 
 	//Encrypting c0, c1 using the above keys
-	op_0 = (char*)malloc(128*sizeof(char));
-	op_1 = (char*)malloc(128*sizeof(char));
+	op_0 = (char*)malloc(150*sizeof(char));
+	op_1 = (char*)malloc(150*sizeof(char));
 	k1 = (char*)malloc(128*sizeof(char));
 	k2 = (char*)malloc(128*sizeof(char));
 	k3 = (char*)malloc(128*sizeof(char));
 	k4 = (char*)malloc(128*sizeof(char));
-	iniv = (char*)malloc(128*sizeof(char));
+	iniv = (char*)malloc(16*sizeof(char));
 
 	mpz_get_str(op_0, 10, c0);
 	mpz_get_str(op_1, 10, c1); 
@@ -80,37 +80,48 @@ int main(){
 	mpz_get_str(k4, 10, key4); 
 	mpz_get_str(iniv, 10, iv); 
 
+	int len;
 	//encrypting using key1
-	//not padding because strlen(op_0) is 128
+	pad(op_0);
 	AES_init_ctx(ctx, k1);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_0, 128);	
+	len = strlen(op_0);
+	fprintf(ciph, "%d\n", len);
 	fprintf(ciph, "%s\n", op_0);
 
 	//encrypting using key2
 	mpz_get_str(op_0, 10, c0);
+	pad(op_0);
 	AES_init_ctx(ctx, k2);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_0, 128);
+	len = strlen(op_0);
+	fprintf(ciph, "%d\n", len);
 	fprintf(ciph, "%s\n", op_0);
 
 	//encrypting using key3
 	mpz_get_str(op_0, 10, c0);
+	pad(op_0);
 	AES_init_ctx(ctx, k3);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_0, 128);
+	len = strlen(op_0);
+	fprintf(ciph, "%d\n", len);
 	fprintf(ciph, "%s\n", op_0);
 
 	//encrypting using key4
-	//pad(op_1);
+	pad(op_1);
 	AES_init_ctx(ctx, k4);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_1, 128);
+	len = strlen(op_1);
+	fprintf(ciph, "%d\n", len);
 	fprintf(ciph, "%s\n", op_1);
 
 	//send the above encryptions to Bob -- iv, four encryptions, hash of op_0 and op_1
-	// mpz_get_str(op_0, 10, c0);
-	// mpz_get_str(op_1, 10, c1); 
+	mpz_get_str(op_0, 10, c0);
+	mpz_get_str(op_1, 10, c1); 
 	//  var1 = hash(op_0);
 	// var2 = hash(op_1);
 	//write var1 and var2 to file hash.txt. 
