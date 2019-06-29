@@ -14,7 +14,7 @@ void pad(char* plaintext){
 		strcpy(padded, plaintext);
 		strcat(padded, "0000000000000000");
 		strcpy(plaintext, padded);
-		free(padded);
+		plaintext=(char *)realloc(padded,(length+17)*sizeof(char));
 	}
 
 	else{
@@ -25,8 +25,7 @@ void pad(char* plaintext){
 		}
 		padded[length+pad_value] = '\0';
 		//printf("%s\n", padded);
-		strcpy(plaintext, padded);
-		free(padded);
+		plaintext=(char *)realloc(padded,(length+17)*sizeof(char));
 	}
 }
 
