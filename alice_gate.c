@@ -8,6 +8,7 @@
 #include "padding.h"
 
 #define KEY_LENGTH 128
+#define IV_LENGTH 16
 
 int main(){
 	//Files to write the randomly generated keys
@@ -19,7 +20,7 @@ int main(){
 	FILE *hash = fopen("hash.txt", "w");
 
 	struct AES_ctx *ctx;
-	mpz_t a0, b0, a1, b1, c0, c1, key1, key2, key3, key4, iv, temp,key_len;
+	mpz_t a0, b0, a1, b1, c0, c1, key1, key2, key3, key4, iv, temp1, temp2, key_len, iv_len;
 	char *op_0, *op_1, *k1, *k2, *k3, *k4, *iniv;
 	mpz_init(a0);
 	mpz_init(a1);
@@ -33,35 +34,41 @@ int main(){
 	mpz_init(key3);
 	mpz_init(key4);
 	mpz_init(key_len);
-	mpz_init(temp);
+	mpz_init(iv_len);
+	mpz_init(temp1);
+	mpz_init(temp2);
 	int seed;
 
-	//key_len=2^127
-	mpz_set_ui(temp,1);
-	mpz_mul_2exp(key_len,temp,KEY_LENGTH-1);
+	//setting key_len = 2^127
+	mpz_set_ui(temp1, 1);
+	mpz_mul_2exp(key_len, temp1, KEY_LENGTH-1);
+
+	//setting iv_len = 2^15
+	mpz_set_ui(temp2, 1);
+	mpz_mul_2exp(iv_len, temp2, IV_LENGTH-1);
 
 	printf("Enter seed: ");
-	scanf("%d",&seed);
+	scanf("%d", &seed);
 	
 	gmp_randstate_t state;
 	gmp_randinit_mt(state);
-	gmp_randseed_ui(state,seed);
+	gmp_randseed_ui(state, seed);
 
 	//Generating random labels
 	mpz_rrandomb(a0, state, KEY_LENGTH);
-	//bitwise or with key_len so that the length is always 128 bits
-	mpz_ior(a0,a0,key_len);
+	mpz_ior(a0, a0, key_len); //bitwise or with key_len so that the length is always 128 bits
 	mpz_rrandomb(a1, state, KEY_LENGTH);
-	mpz_ior(a1,a1,key_len);
+	mpz_ior(a1, a1, key_len);
 	mpz_rrandomb(b0, state, KEY_LENGTH);
-	mpz_ior(b0,b0,key_len);
+	mpz_ior(b0, b0, key_len);
 	mpz_rrandomb(b1, state, KEY_LENGTH);
-	mpz_ior(b1,b1,key_len);
+	mpz_ior(b1, b1, key_len);
 	mpz_rrandomb(c0, state, KEY_LENGTH);
-	mpz_ior(c0,c0,key_len);
+	mpz_ior(c0, c0, key_len);
 	mpz_rrandomb(c1, state, KEY_LENGTH);
-	mpz_ior(c1,c1,key_len);
-	mpz_rrandomb(iv, state, 16);
+	mpz_ior(c1, c1, key_len);
+	mpz_rrandomb(iv, state, IV_LENGTH);
+	mpz_ior(iv, iv, iv_len);
 
 	//writing these to file
 	gmp_fprintf(alabel, "%Zd\n", a0);
@@ -74,22 +81,22 @@ int main(){
 
 	//XORing random numbers to generate keys for AES
 	mpz_xor(key1, a0, b0);
-	mpz_ior(key1,key1,key_len);
+	mpz_ior(key1, key1, key_len); //bitwise or with key_len so that the length is always 128 bits
 	mpz_xor(key2, a0, b1);
-	mpz_ior(key2,key2,key_len);
+	mpz_ior(key2, key2, key_len);
 	mpz_xor(key3, a1, b0);
-	mpz_ior(key3,key3,key_len);
+	mpz_ior(key3, key3, key_len);
 	mpz_xor(key4, a1, b1);
-	mpz_ior(key4,key4,key_len);
+	mpz_ior(key4, key4, key_len);
 
 	//Encrypting c0, c1 using the above keys
-	op_0 = (char*)malloc(150*sizeof(char));
-	op_1 = (char*)malloc(150*sizeof(char));
+	op_0 = (char*)malloc(500*sizeof(char));
+	op_1 = (char*)malloc(500*sizeof(char));
 	k1 = (char*)malloc(128*sizeof(char));
 	k2 = (char*)malloc(128*sizeof(char));
 	k3 = (char*)malloc(128*sizeof(char));
 	k4 = (char*)malloc(128*sizeof(char));
-	iniv = (char*)malloc(16*sizeof(char));
+	iniv = (char*)malloc(20*sizeof(char));
 
 	mpz_get_str(op_0, 10, c0);
 	mpz_get_str(op_1, 10, c1); 
@@ -102,6 +109,7 @@ int main(){
 	int len;
 	//encrypting using key1
 	op_0 = pad(op_0);
+	printf("op_0 : %s\n", op_0);
 	AES_init_ctx(ctx, k1);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_0, 128);	
@@ -166,5 +174,5 @@ int main(){
 	free(k2);
 	free(k3);
 	free(k4);
-	free(iniv);
+	//free(iniv);
 }

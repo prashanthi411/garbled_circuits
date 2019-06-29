@@ -230,11 +230,13 @@ void AES_init_ctx(struct AES_ctx* ctx, const uint8_t* key)
 #if (defined(CBC) && (CBC == 1)) || (defined(CTR) && (CTR == 1))
 void AES_init_ctx_iv(struct AES_ctx* ctx, const uint8_t* key, const uint8_t* iv)
 {
+  ctx->Iv = malloc(AES_BLOCKLEN*sizeof(uint8_t));
   KeyExpansion(ctx->RoundKey, key);
   memcpy (ctx->Iv, iv, AES_BLOCKLEN);
 }
 void AES_ctx_set_iv(struct AES_ctx* ctx, const uint8_t* iv)
 {
+  ctx->Iv = malloc(AES_BLOCKLEN*sizeof(uint8_t));
   memcpy (ctx->Iv, iv, AES_BLOCKLEN);
 }
 #endif

@@ -21,10 +21,10 @@ int main(){
 	
 	//variables for reading encryptions from the file "ciph.txt"
 	char *e1, *e2, *e3, *e4;
-	e1 = (char*)malloc(150*sizeof(char));
-	e2 = (char*)malloc(150*sizeof(char));
-	e3 = (char*)malloc(150*sizeof(char));
-	e4 = (char*)malloc(150*sizeof(char));
+	e1 = (char*)malloc(1000*sizeof(char));
+	e2 = (char*)malloc(1000*sizeof(char));
+	e3 = (char*)malloc(1000*sizeof(char));
+	e4 = (char*)malloc(1000*sizeof(char));
 	ciph = fopen("ciph.txt", "r");
 	fscanf(ciph, "%d\n", l1);
 	fgets(e1, (int)(*l1+1), ciph);
