@@ -4,7 +4,7 @@
 
 char * pad(char* plaintext){
 	int pad_value, length;
-	char* padded;
+	char* padded,temp;
 	length = strlen(plaintext);
 	printf("length: %d\n", length);
 
@@ -19,7 +19,8 @@ char * pad(char* plaintext){
 	padded[length+pad_value] = '\0';
 	printf("padded: %s\n",padded);
 	//printf("%s\n", padded);
-	free(plaintext);
+	temp=plaintext;
+	free(temp);
 	return padded;
 }
 
