@@ -2,43 +2,35 @@
 #include<stdlib.h>
 #include<string.h>
 
-void pad(char* plaintext){
+char * pad(char* plaintext){
 	int pad_value, length;
 	char* padded;
 	length = strlen(plaintext);
 	printf("length: %d\n", length);
 
-	pad_value = 4 - length%4;
-	if(pad_value == 0){
-		padded = (char *)malloc((length+5)*sizeof(char));
-		strcpy(padded, plaintext);
-		strcat(padded, "0000");
-		plaintext=(char *)realloc(padded,(length+17)*sizeof(char));
+	pad_value = 16 - length%16;
+	printf("pad_value: %d\n",pad_value);
+	
+	padded = (char *)malloc((length+pad_value+1)*sizeof(char));
+	strcpy(padded, plaintext);
+	for(int i=0 ; i < pad_value; i++){
+		padded[length+i] = (char)(pad_value+64);
 	}
-
-	else{
-		padded = (char *)malloc((length+pad_value+1)*sizeof(char));
-		strcpy(padded, plaintext);
-		for(int i=0 ; i < pad_value; i++){
-			padded[length+i] = (char)pad_value;
-		}
-		padded[length+pad_value] = '\0';
-		//printf("%s\n", padded);
-		plaintext=(char *)realloc(padded,(length+pad_value+1)*sizeof(char));
-	}
+	padded[length+pad_value] = '\0';
+	printf("padded: %s\n",padded);
+	//printf("%s\n", padded);
+	free(plaintext);
+	return padded;
 }
 
-void de_pad(char* plaintext){
+char * de_pad(char* plaintext){
 	int pad_value, length;
 	char* padded;
 	length = strlen(plaintext);
 
-	pad_value = plaintext[length-1];
-	if(pad_value == 0){
-		padded =  (char *)realloc(plaintext, (length-15)*sizeof(char));
-	}
+	pad_value = plaintext[length-1]-64;
 
-	else{
-		padded =  (char *)realloc(plaintext, (length-pad_value+1)*sizeof(char));
-	}
+	padded =  (char *)realloc(plaintext, (length-pad_value+1)*sizeof(char));
+
+	return padded;
 }

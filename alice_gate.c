@@ -101,7 +101,7 @@ int main(){
 
 	int len;
 	//encrypting using key1
-	pad(op_0);
+	op_0 = pad(op_0);
 	AES_init_ctx(ctx, k1);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_0, 128);	
@@ -111,7 +111,7 @@ int main(){
 
 	//encrypting using key2
 	mpz_get_str(op_0, 10, c0);
-	pad(op_0);
+	op_0 = pad(op_0);
 	AES_init_ctx(ctx, k2);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_0, 128);
@@ -121,7 +121,7 @@ int main(){
 
 	//encrypting using key3
 	mpz_get_str(op_0, 10, c0);
-	pad(op_0);
+	op_0 = pad(op_0);
 	AES_init_ctx(ctx, k3);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_0, 128);
@@ -130,7 +130,7 @@ int main(){
 	fprintf(ciph, "%s\n", op_0);
 
 	//encrypting using key4
-	pad(op_1);
+	op_1 = pad(op_1);
 	AES_init_ctx(ctx, k4);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_1, 128);
