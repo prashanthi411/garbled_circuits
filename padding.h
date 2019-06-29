@@ -8,11 +8,11 @@ void pad(char* plaintext){
 	length = strlen(plaintext);
 	printf("length: %d\n", length);
 
-	pad_value = 4 - length%4;
+	pad_value = 16 - length%16;
 	if(pad_value == 0){
-		padded = (char *)malloc((length+5)*sizeof(char));
+		padded = (char *)malloc((length+17)*sizeof(char));
 		strcpy(padded, plaintext);
-		strcat(padded, "0000");
+		strcat(padded, "0000000000000000");
 		plaintext=(char *)realloc(padded,(length+17)*sizeof(char));
 	}
 
