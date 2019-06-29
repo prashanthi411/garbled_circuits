@@ -7,6 +7,8 @@
 #include "aes.c"
 #include "padding.h"
 
+#define KEY_LENGTH 128
+
 int main(){
 	//Files to write the randomly generated keys
 	FILE *alabel = fopen("alabel.txt", "w");
@@ -17,7 +19,7 @@ int main(){
 	FILE *hash = fopen("hash.txt", "w");
 
 	struct AES_ctx *ctx;
-	mpz_t a0, b0, a1, b1, c0, c1, key1, key2, key3, key4, iv;
+	mpz_t a0, b0, a1, b1, c0, c1, key1, key2, key3, key4, iv, temp,key_len;
 	char *op_0, *op_1, *k1, *k2, *k3, *k4, *iniv;
 	mpz_init(a0);
 	mpz_init(a1);
@@ -30,8 +32,14 @@ int main(){
 	mpz_init(key2);
 	mpz_init(key3);
 	mpz_init(key4);
+	mpz_init(key_len);
+	mpz_init(temp);
 	int seed;
-	
+
+	//key_len=2^127
+	mpz_set_ui(temp,1);
+	mpz_mul_2exp(key_len,temp,KEY_LENGTH-1);
+
 	printf("Enter seed: ");
 	scanf("%d",&seed);
 	
@@ -40,12 +48,19 @@ int main(){
 	gmp_randseed_ui(state,seed);
 
 	//Generating random labels
-	mpz_rrandomb(a0, state, 128);
-	mpz_rrandomb(a1, state, 128);
-	mpz_rrandomb(b0, state, 128);
-	mpz_rrandomb(b1, state, 128);
-	mpz_rrandomb(c0, state, 128);
-	mpz_rrandomb(c1, state, 128);
+	mpz_rrandomb(a0, state, KEY_LENGTH);
+	//bitwise or with key_len so that the length is always 128 bits
+	mpz_ior(a0,a0,key_len);
+	mpz_rrandomb(a1, state, KEY_LENGTH);
+	mpz_ior(a1,a1,key_len);
+	mpz_rrandomb(b0, state, KEY_LENGTH);
+	mpz_ior(b0,b0,key_len);
+	mpz_rrandomb(b1, state, KEY_LENGTH);
+	mpz_ior(b1,b1,key_len);
+	mpz_rrandomb(c0, state, KEY_LENGTH);
+	mpz_ior(c0,c0,key_len);
+	mpz_rrandomb(c1, state, KEY_LENGTH);
+	mpz_ior(c1,c1,key_len);
 	mpz_rrandomb(iv, state, 16);
 
 	//writing these to file
@@ -59,9 +74,13 @@ int main(){
 
 	//XORing random numbers to generate keys for AES
 	mpz_xor(key1, a0, b0);
+	mpz_ior(key1,key1,key_len);
 	mpz_xor(key2, a0, b1);
+	mpz_ior(key2,key2,key_len);
 	mpz_xor(key3, a1, b0);
+	mpz_ior(key3,key3,key_len);
 	mpz_xor(key4, a1, b1);
+	mpz_ior(key4,key4,key_len);
 
 	//Encrypting c0, c1 using the above keys
 	op_0 = (char*)malloc(150*sizeof(char));
