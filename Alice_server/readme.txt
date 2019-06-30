@@ -62,3 +62,7 @@ ip address should be 127.0.0.1 when both the connections are being run on the sa
 Both server and clients will be asked to input seeds for random number generation.
 
 The client will be asked to enter b (either 0 or 1) which will indicate their choice.
+
+Sources: 
+AES -- https://github.com/kokke/tiny-AES-c/
+SHA3 -- https://github.com/mjosaarinen/tiny_sha3
