@@ -6,6 +6,7 @@
 #include "aes.h"
 #include "aes.c"
 #include "padding.h"
+#include "sha3.c"
 
 #define KEY_LENGTH 128
 #define IV_LENGTH 16
@@ -149,8 +150,10 @@ int main(){
 	//send the above encryptions to Bob -- iv, four encryptions, hash of op_0 and op_1
 	mpz_get_str(op_0, 10, c0);
 	mpz_get_str(op_1, 10, c1); 
-	//  var1 = hash(op_0);
-	// var2 = hash(op_1);
+	sha3(op_0, 16, op_0, 16);
+	sha3(op_1, 16, op_1, 16);
+	fprintf(hash, "%s\n", op_0);
+	fprintf(hash, "%s\n", op_1);
 	//write var1 and var2 to file hash.txt. 
 	// send this file to Bob.
 
