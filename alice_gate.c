@@ -19,6 +19,7 @@ int main(){
 	FILE *initvec = fopen("initvec.txt", "w");
 	FILE *ciph = fopen("ciph.txt", "w");
 	FILE *hash = fopen("hash.txt", "w");
+	FILE *keys = fopen("keys.txt", "w"); //temp
 
 	struct AES_ctx *ctx;
 	mpz_t a0, b0, a1, b1, c0, c1, key1, key2, key3, key4, iv, temp1, temp2, key_len, iv_len;
@@ -107,13 +108,23 @@ int main(){
 	mpz_get_str(k4, 10, key4); 
 	mpz_get_str(iniv, 10, iv); 
 
+	/**********temp***********/
+
+	fprintf(keys, "%s\n", k1);
+	fprintf(keys, "%s\n", k2);
+	fprintf(keys, "%s\n", k3);
+	fprintf(keys, "%s\n", k4);
+
+	/************************/
+
 	int len;
 	//encrypting using key1
 	op_0 = pad(op_0);
 	printf("op_0 : %s\n", op_0);
 	AES_init_ctx(ctx, k1);
 	AES_ctx_set_iv(ctx, iniv);
-	AES_CBC_encrypt_buffer(ctx, op_0, 128);	
+	AES_CBC_encrypt_buffer(ctx, op_0, 48);	
+	printf("op_0: %s\n", op_0);
 	len = strlen(op_0);
 	fprintf(ciph, "%d\n", len);
 	fprintf(ciph, "%s\n", op_0);
@@ -123,7 +134,8 @@ int main(){
 	op_0 = pad(op_0);
 	AES_init_ctx(ctx, k2);
 	AES_ctx_set_iv(ctx, iniv);
-	AES_CBC_encrypt_buffer(ctx, op_0, 128);
+	AES_CBC_encrypt_buffer(ctx, op_0, 48);
+	printf("op_0: %s\n", op_0);
 	len = strlen(op_0);
 	fprintf(ciph, "%d\n", len);
 	fprintf(ciph, "%s\n", op_0);
@@ -133,7 +145,8 @@ int main(){
 	op_0 = pad(op_0);
 	AES_init_ctx(ctx, k3);
 	AES_ctx_set_iv(ctx, iniv);
-	AES_CBC_encrypt_buffer(ctx, op_0, 128);
+	AES_CBC_encrypt_buffer(ctx, op_0, 48);
+	printf("op_0: %s\n", op_0);
 	len = strlen(op_0);
 	fprintf(ciph, "%d\n", len);
 	fprintf(ciph, "%s\n", op_0);
@@ -142,7 +155,8 @@ int main(){
 	op_1 = pad(op_1);
 	AES_init_ctx(ctx, k4);
 	AES_ctx_set_iv(ctx, iniv);
-	AES_CBC_encrypt_buffer(ctx, op_1, 128);
+	AES_CBC_encrypt_buffer(ctx, op_1, 48);
+	printf("op_1: %s\n", op_1);
 	len = strlen(op_1);
 	fprintf(ciph, "%d\n", len);
 	fprintf(ciph, "%s\n", op_1);
@@ -154,8 +168,6 @@ int main(){
 	sha3(op_1, 39, op_1, 39);
 	fprintf(hash, "%s\n", op_0);
 	fprintf(hash, "%s\n", op_1);
-
-	printf("Sending the garbled table...\n");
 
 	//clearing space for all variables
 	mpz_clear(a0);

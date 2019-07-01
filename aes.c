@@ -35,6 +35,8 @@ NOTE:   String length must be evenly divisible by 16byte (str_len % 16 == 0)
 /*****************************************************************************/
 /* Includes:                                                                 */
 /*****************************************************************************/
+//#include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
 #include <string.h> // CBC mode, for memset
 #include "aes.h"
@@ -230,8 +232,7 @@ void AES_init_ctx(struct AES_ctx* ctx, const uint8_t* key)
 #if (defined(CBC) && (CBC == 1)) || (defined(CTR) && (CTR == 1))
 void AES_init_ctx_iv(struct AES_ctx* ctx, const uint8_t* key, const uint8_t* iv)
 {
-  ctx->Iv = malloc(AES_BLOCKLEN*sizeof(uint8_t));
-  KeyExpansion(ctx->RoundKey, key);
+  ctx->RoundKey = malloc(AES_keyExpSize*sizeof(uint8_t));
   memcpy (ctx->Iv, iv, AES_BLOCKLEN);
 }
 void AES_ctx_set_iv(struct AES_ctx* ctx, const uint8_t* iv)
@@ -526,7 +527,7 @@ void AES_CBC_decrypt_buffer(struct AES_ctx* ctx, uint8_t* buf,  uint32_t length)
     memcpy(ctx->Iv, storeNextIv, AES_BLOCKLEN);
     buf += AES_BLOCKLEN;
   }
-  printf("%s\n", buf);
+//  printf("%s\n", buf);
 
 }
 

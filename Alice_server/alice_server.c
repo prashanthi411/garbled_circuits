@@ -186,8 +186,8 @@ int main(int argc, char** argv)
 	printf("Enter your input for gate-1: \n");
 	scanf("%d", &input);
 
-	alabel = fopen("alabel.txt", "w");
-	blabel = fopen("blabel.txt", "w");	
+	alabel = fopen("alabel.txt", "r");
+	blabel = fopen("blabel.txt", "r");	
 	fscanf(alabel, "%s", a0);
 	fscanf(alabel, "\n");
 	fscanf(alabel, "%s", a1);

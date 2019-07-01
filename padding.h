@@ -9,7 +9,7 @@ char * pad(char* plaintext){
 	printf("length: %d\n", length);
 
 	pad_value = 16 - length%16;
-	printf("pad_value: %d\n",pad_value);
+	printf("pad_value: %d\n", pad_value);
 	
 	padded = (char *)malloc((length+pad_value+1)*sizeof(char));
 	strcpy(padded, plaintext);
