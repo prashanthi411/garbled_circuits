@@ -44,7 +44,7 @@ struct AES_ctx
 {
   uint8_t *RoundKey;
 #if (defined(CBC) && (CBC == 1)) || (defined(CTR) && (CTR == 1))
-  uint8_t Iv[AES_BLOCKLEN];
+  uint8_t *Iv;
 #endif
 };
 

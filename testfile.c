@@ -14,7 +14,7 @@
 #include "padding.h"
 int main(){
 	struct AES_ctx* ctx;
-
+	ctx = (struct AES_ctx*)malloc(sizeof(struct AES_ctx));
 	FILE *ciph, *extra, *keys, *initvec;
 	//variables for reading encryptions from the file "ciph.txt"
 	mpz_t ky1, ky2, ky3, ky4;
@@ -59,13 +59,12 @@ int main(){
 	}
 	printf("e1: %s\n", e1);
 	
-	ctx->RoundKey = malloc(AES_keyExpSize*sizeof(uint8_t));
-	ctx->Iv = malloc(AES_BLOCKLEN*sizeof(uint8_t));
+	AES_init_ctx(ctx, k1);
+	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e1, 48);
 	printf("op_0 after decryption: %s\n", e1);
 	printf("e1: %s\n", e1);	
-	AES_init_ctx(ctx, k1);
-	AES_ctx_set_iv(ctx, iniv);
+	//e1 = de_pad(e1);
 	fscanf(ciph, "%d\n", l2);	
 	n2 = (int)(*l2);
 	e2 = (char*)malloc((n2+5)*sizeof(char));

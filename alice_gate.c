@@ -22,6 +22,7 @@ int main(){
 	FILE *keys = fopen("keys.txt", "w"); //temp
 
 	struct AES_ctx *ctx;
+	ctx = (struct AES_ctx*)malloc(sizeof(struct AES_ctx));
 	mpz_t a0, b0, a1, b1, c0, c1, key1, key2, key3, key4, iv, temp1, temp2, key_len, iv_len;
 	char *op_0, *op_1, *k1, *k2, *k3, *k4, *iniv;
 	mpz_init(a0);
@@ -108,18 +109,18 @@ int main(){
 	mpz_get_str(k4, 10, key4); 
 	mpz_get_str(iniv, 10, iv); 
 
-	/**********temp***********/
+	/**********Writing keys to file***********/
 
 	fprintf(keys, "%s\n", k1);
 	fprintf(keys, "%s\n", k2);
 	fprintf(keys, "%s\n", k3);
 	fprintf(keys, "%s\n", k4);
 
-	/************************/
+	/*****************************************/
 
 	int len;
 	//encrypting using key1
-	op_0 = pad(op_0);
+	//op_0 = pad(op_0);
 	printf("op_0 : %s\n", op_0);
 	AES_init_ctx(ctx, k1);
 	AES_ctx_set_iv(ctx, iniv);
