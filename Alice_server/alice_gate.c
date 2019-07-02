@@ -189,4 +189,11 @@ int main(){
 	free(k3);
 	free(k4);
 	//free(iniv);
+	fclose(alabel);
+	fclose(blabel);
+	fclose(initvec);
+	fclose(ciph);
+	fclose(oplabel);
+	fclose(hash);
+	fclose(keys);	
 }

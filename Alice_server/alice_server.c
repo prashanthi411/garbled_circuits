@@ -28,11 +28,11 @@ int main(int argc, char** argv)
 
 
 	//variables keys
-	char *a0, *b0, *a1, *b1; 
-	a0 = (char*) malloc(45*sizeof(char));
-	b0 = (char*) malloc(45*sizeof(char));
-	a1 = (char*) malloc(45*sizeof(char));
-	b1 = (char*) malloc(45*sizeof(char));
+	char *a_0, *b_0, *a_1, *b_1; 
+	a_0 = (char*) malloc(145*sizeof(char));
+	b_0 = (char*) malloc(145*sizeof(char));
+	a_1 = (char*) malloc(145*sizeof(char));
+	b_1 = (char*) malloc(145*sizeof(char));
 
 
 	//Creation of socket Alice
@@ -43,7 +43,7 @@ int main(int argc, char** argv)
 	struct sockaddr_in server_alice;
 	struct sockaddr_in server_bob;
 	server_alice.sin_family=AF_INET;
-	server_alice.sin_port=htons(atoi(argv[1]));
+	server_alice.sin_port=htons(atoi("9090"));
 	server_alice.sin_addr.s_addr=INADDR_ANY;
 	bzero(&server_alice.sin_zero, 8);
 
@@ -181,28 +181,28 @@ int main(int argc, char** argv)
 
 	printf("Sending keys to Bob...\n");
 	//Sending Bob the Alice's input labels
-
 	printf("Enter your input for gate-1: \n");
 	scanf("%d", &input);
-
+	printf("done\n");
 	alabel = fopen("alabel.txt", "r");
-	blabel = fopen("blabel.txt", "r");	
-	fscanf(alabel, "%s", a0);
+	blabel = fopen("blabel.txt", "r");
+	printf("done\n");	
+	fscanf(alabel, "%s", a_0);
 	fscanf(alabel, "\n");
-	fscanf(alabel, "%s", a1);
+	fscanf(alabel, "%s", a_1);
+	printf("a0: %s\n", a_0);
 	fscanf(blabel, "%s", b0);
 	fscanf(blabel, "\n");
 	fscanf(blabel, "%s", b1);
-
 	if(input == 0){
-		strcat(a0, "\n");
-		send(bob, a0, strlen(a0), 0);
-		bzero(a0, strlen(a0));
+		strcat(a_0, "\n");
+		send(bob, a_0, strlen(a_0), 0);
+		bzero(a_0, strlen(a_0));
 	}
 	else{
-		strcat(a1, "\n");
-		send(bob, a1, strlen(a1), 0);
-		bzero(a1, strlen(a1));
+		strcat(a_1, "\n");
+		send(bob, a_1, strlen(a_1), 0);
+		bzero(a_1, strlen(a_1));
 	}
 
 /***********************************Oblivious Transfer for sending b0/b1*******************************************/

@@ -24,5 +24,5 @@ int main(){
 	fclose(fptr);
 	mpz_clear(x_0);
 	mpz_clear(x_1);
-
+	printf("ot1 done\n");
 }
