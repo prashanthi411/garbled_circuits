@@ -18,7 +18,6 @@ int main(int argc, char** argv)
 
 	FILE *ciph, *hash, *random, *c_bob, *enc_messages, *alabel, *blabel;
 	
-
 	//variables for reading encryptions from the file "ciph.txt"
 	char *e1, *e2, *e3, *e4, *h_op0, *h_op1; //h_op0 is the hashed encrypted output 0
 	int n1, n2, n3, n4, *l1, *l2, *l3, *l4;
