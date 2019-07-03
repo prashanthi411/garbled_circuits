@@ -14,12 +14,14 @@
 int main(int argc, char** argv)
 {
 	int bob, alice, len, input;
-	pid_t pid;
+	pid_t pid1, pid2, pid3, pid4;
 
-	FILE *ciph, *hash, *rndm, *bob_c, *enc_mes, *alabel, *blabel;
+	FILE *ciph, *hash, *rndm, *bob_c, *enc_mes, *alabel, *blabel, *initvec;
 	alabel = fopen("alabel.txt", "r+");
 	blabel = fopen("blabel.txt", "r+");
-
+	/*rndm = fopen("randomx.txt", "r");
+	bob_c = fopen("bob_c.txt", "w");*/
+	
 	//variables for reading encryptions from the file "ciph.txt"
 	char *e1, *e2, *e3, *e4, *h_op0, *h_op1; //h_op0 is the hashed encrypted output 0
 	int n1, n2, n3, n4, *l1, *l2, *l3, *l4;
@@ -85,10 +87,10 @@ int main(int argc, char** argv)
 
 
 	//Fork to execute al_gate
-	pid = fork();
+	pid1 = fork();
 
 	//child process
-	if(pid == 0)
+	if(pid1 == 0)
 	{
 		//child process al_gate
 		static char *argv[] = {"al_gate", NULL};
@@ -98,6 +100,19 @@ int main(int argc, char** argv)
 
 	//Waits for al_gate to finish
 	wait(NULL);
+
+
+/**********************************************************/
+
+	printf("Sending initialisation vector...\n");
+
+	initvec = fopen("initvec.txt", "r");
+	fscanf(initvec, "%s", buffer);
+	strcat(buffer, "\n");
+	send(bob, buffer, BUFFER_SIZE, 0);    //A8
+	bzero(buffer, BUFFER_SIZE);
+
+/*********************************************************/
 
 	printf("Sending the garbled table...\n");
 
@@ -207,10 +222,10 @@ int main(int argc, char** argv)
 /***********************************Oblivious Transfer for sending b0/b1*******************************************/
 
 	//Fork to execute alice1
-	pid = fork();
+	pid2 = fork();
 
 	//child process
-	if(pid == 0)
+	if(pid2 == 0)
 	{
 		//Execute alice1
 		static char *argv[] = {"alice1", NULL};
@@ -223,7 +238,7 @@ int main(int argc, char** argv)
 
 	//Send randomly generated nymbers by alice1 to bob
 	rndm = fopen("randomx.txt", "r");
-	
+
 	fscanf(rndm, "%s", buffer);
 	strcat(buffer, "\n");
 	send(bob, buffer, BUFFER_SIZE, 0);    //A8
@@ -247,10 +262,10 @@ int main(int argc, char** argv)
 	printf("Alice has recieved c from Bob\n");
 
 	//Fork to execute alice2
-	pid=fork();
+	pid3=fork();
 
 	//child process
-	if(pid==0)
+	if(pid3==0)
 	{
 		//child process alice2
 		static char *argv[]={"alice2",NULL};

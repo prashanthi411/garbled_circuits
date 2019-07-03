@@ -49,6 +49,7 @@ int main(){
 	mpz_ior(k, k, key_len); //ensuring it's 128 bits
 	mpz_get_str(key, 10, k); //converting key to string
 
+	printf("key: %s\n", key);
 
 	fscanf(ciph, "%s", e1);
 	fscanf(ciph, "\n");
@@ -77,8 +78,11 @@ int main(){
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e4, 48);
+	printf("e1: %s\n", e1);
+	printf("e2: %s\n", e2);
+	printf("e3: %s\n", e3);
+	printf("e4: %s\n", e4);
 
-	
 	fscanf(hash, "%s", h_op0);
 	fscanf(hash, "\n");
 	fscanf(hash, "%s", h_op1);
@@ -88,6 +92,14 @@ int main(){
 	sha3(e3, 39, e3, 39);
 	sha3(e4, 39, e4, 39);
 
+	printf("e1: %s\n", e1);
+	printf("e2: %s\n", e2);
+	printf("e3: %s\n", e3);
+	printf("e4: %s\n", e4);
+
+	printf("op0: %s\n", h_op0);
+	printf("op0: %s\n", h_op1);
+	
 	printf("Computing output...\n");
 
 	if(strcat(e1, h_op0)==0){
