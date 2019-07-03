@@ -178,4 +178,17 @@ int main(int argc, char** argv)
 	printf("Number recieved from Alice is: %s\n", buffer);
 
 	//BOB GATE IS EXECUTED HERE FOR THE FINAL COMPUTATION
+	//Fork to execute bob_gate
+	pid=fork();
+	printf("now bob_gate is going to be executed\n");
+	//child process
+	if(pid==0)
+	{
+		//child process bob_gate
+		static char *argv[]={"bob_gate", NULL};
+		execv("bob_gate", argv);
+		exit(-1);
+	}
+
+	printf("bob gate has been executed\n");
 }

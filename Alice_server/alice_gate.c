@@ -13,13 +13,13 @@
 
 int main(){
 	//Files to write the randomly generated keys
-	FILE *alabel = fopen("alabel.txt", "w");
-	FILE *blabel = fopen("blabel.txt", "w");
-	FILE *oplabel = fopen("oplabel.txt", "w");
-	FILE *initvec = fopen("initvec.txt", "w");
-	FILE *ciph = fopen("ciph.txt", "w");
-	FILE *hash = fopen("hash.txt", "w");
-	FILE *keys = fopen("keys.txt", "w"); //temp
+	FILE *alabel = fopen("alabel.txt", "w+");
+	FILE *blabel = fopen("blabel.txt", "w+");
+	FILE *oplabel = fopen("oplabel.txt", "w+");
+	FILE *initvec = fopen("initvec.txt", "w+");
+	FILE *ciph = fopen("ciph.txt", "w+");
+	FILE *hash = fopen("hash.txt", "w+");
+	FILE *keys = fopen("keys.txt", "w+"); //temp
 
 	struct AES_ctx *ctx;
 	ctx = (struct AES_ctx*)malloc(sizeof(struct AES_ctx));

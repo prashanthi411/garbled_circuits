@@ -4,7 +4,7 @@
 #include "rsa.h"
 int main(){
 	FILE *fptr;
-	fptr = fopen("randomx.txt", "w"); //file to store randomly generated x_0, x_1
+	fptr = fopen("randomx.txt", "w+"); //file to store randomly generated x_0, x_1
 	mpz_t x_0, x_1;
 	int seed;
 	
