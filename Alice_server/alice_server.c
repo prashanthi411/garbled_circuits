@@ -19,11 +19,10 @@ int main(int argc, char** argv)
 	FILE *ciph, *hash, *rndm, *bob_c, *enc_mes, *alabel, *blabel, *initvec;
 	alabel = fopen("alabel.txt", "r+");
 	blabel = fopen("blabel.txt", "r+");
-	/*rndm = fopen("randomx.txt", "r");
-	bob_c = fopen("bob_c.txt", "w");*/
+	
 	
 	//variables for reading encryptions from the file "ciph.txt"
-	char *e1, *e2, *e3, *e4, *h_op0, *h_op1; //h_op0 is the hashed encrypted output 0
+	char *e1, *e2, *e3, *e4, *h_op0, *h_op1, *iniv; //h_op0 is the hashed encrypted output 0
 	int n1, n2, n3, n4, *l1, *l2, *l3, *l4;
 	l1 = (int*)malloc(sizeof(int));
 	l2 = (int*)malloc(sizeof(int));
@@ -32,7 +31,7 @@ int main(int argc, char** argv)
 
 
 	//variables keys
-	char *a_0, *b_0, *a_1, *b_1; 
+	char *a_0, *b_0, *a_1, *b_1;// *s_n; 
 	a_0 = (char*) malloc(300*sizeof(char));
 	b_0 = (char*) malloc(300*sizeof(char));
 	a_1 = (char*) malloc(300*sizeof(char));
@@ -106,11 +105,12 @@ int main(int argc, char** argv)
 
 	printf("Sending initialisation vector...\n");
 
+	iniv = (char*)malloc(20*sizeof(char));
 	initvec = fopen("initvec.txt", "r");
-	fscanf(initvec, "%s", buffer);
-	strcat(buffer, "\n");
-	send(bob, buffer, BUFFER_SIZE, 0);    //A8
-	bzero(buffer, BUFFER_SIZE);
+	fscanf(initvec, "%s", iniv);
+	strcat(iniv, "\n");
+	send(bob, iniv, strlen(iniv), 0);    //A0
+	bzero(iniv, strlen(iniv));
 
 /*********************************************************/
 
@@ -123,46 +123,46 @@ int main(int argc, char** argv)
 	
 	fscanf(ciph, "%d\n", l1);	
 	n1 = (int)(*l1);
-	e1 = (char*)malloc((n1+5)*sizeof(char));
+	e1 = (char*)malloc((n1+2)*sizeof(char));
 	for (int i = 0; i < n1; ++i)
 	{
 		e1[i] = fgetc(ciph);
 	}
 	strcat(e1, "\n");
-	send(bob, e1, BUFFER_SIZE, 0);   //A1
+	send(bob, e1, strlen(e1), 0);   //A1
 	//bzero(e1, strlen(e1));
 
 	fscanf(ciph, "%d\n", l2);	
 	n2 = (int)(*l2);
-	e2 = (char*)malloc((n2+5)*sizeof(char));
+	e2 = (char*)malloc((n2+2)*sizeof(char));
 	for (int i = 0; i < n2; ++i)
 	{
 		e2[i] = fgetc(ciph);
 	}		
 	strcat(e2, "\n");
-	send(bob, e2, BUFFER_SIZE, 0);   //A2
+	send(bob, e2, strlen(e2), 0);   //A2
 	//bzero(e2, strlen(e2));
 
 	fscanf(ciph, "%d\n", l3);	
 	n3 = (int)(*l3);
-	e3 = (char*)malloc((n3+5)*sizeof(char));
+	e3 = (char*)malloc((n3+2)*sizeof(char));
 	for (int i = 0; i < n3; ++i)
 	{
 		e3[i] = fgetc(ciph);
 	}	
 	strcat(e3, "\n");
-	send(bob, e3, BUFFER_SIZE, 0);    //A3
+	send(bob, e3, strlen(e3), 0);    //A3
 	//bzero(e3, strlen(e3));
 
 	fscanf(ciph, "%d\n", l4);	
 	n4 = (int)(*l4);
-	e4 = (char*)malloc((n4+5)*sizeof(char));
+	e4 = (char*)malloc((n4+2)*sizeof(char));
 	for (int i = 0; i < n4; ++i)
 	{
 		e4[i] = fgetc(ciph);
 	}	
 	strcat(e4, "\n");
-	send(bob, e4, BUFFER_SIZE, 0);     //A4
+	send(bob, e4, strlen(e4), 0);     //A4
 	//bzero(e4, strlen(e4));
 
 	fclose(ciph);
@@ -173,26 +173,24 @@ int main(int argc, char** argv)
 	//Sending the hashes of op_0 and op_1 to Bob
 	hash = fopen("hash.txt", "r");
 
-	h_op0 = (char*)malloc(39*sizeof(char));
-	h_op1 = (char*)malloc(39*sizeof(char));
+	h_op0 = (char*)malloc(42*sizeof(char));
+	h_op1 = (char*)malloc(42*sizeof(char));
 	for (int i = 0; i < 39; ++i)
 	{
-		h_op0[i] = fgetc(ciph);
+		h_op0[i] = fgetc(hash);
 	}
 
 	fscanf(hash, "\n");
 	for (int i = 0; i < 39; ++i)
 	{
-		h_op1[i] = fgetc(ciph);
+		h_op1[i] = fgetc(hash);
 	}
 
 	strcat(h_op0, "\n");
-	send(bob, h_op0, BUFFER_SIZE, 0);    //A5
-	bzero(h_op0, strlen(h_op0));
+	send(bob, h_op0, strlen(h_op0), 0);    //A5
 
 	strcat(h_op1, "\n");
-	send(bob, h_op1, BUFFER_SIZE, 0);     //A6
-	bzero(h_op1, strlen(h_op1));
+	send(bob, h_op1, strlen(h_op1), 0);     //A6
 
 /**************************************************************************************************************/
 
@@ -210,13 +208,11 @@ int main(int argc, char** argv)
 	fscanf(blabel, "%s", b_1);
 	if(input == 0){
 		strcat(a_0, "\n");
-		send(bob, a_0, BUFFER_SIZE, 0);    //A7
-		bzero(a_0, strlen(a_0));
+		send(bob, a_0, strlen(a_0), 0);    //A7
 	}
 	else{
 		strcat(a_1, "\n");
-		send(bob, a_1, BUFFER_SIZE, 0);    //A7
-		bzero(a_1, strlen(a_1));
+		send(bob, a_1, strlen(a_1), 0);    //A7
 	}
 
 /***********************************Oblivious Transfer for sending b0/b1*******************************************/
@@ -241,12 +237,10 @@ int main(int argc, char** argv)
 
 	fscanf(rndm, "%s", buffer);
 	strcat(buffer, "\n");
-	send(bob, buffer, BUFFER_SIZE, 0);    //A8
-	bzero(buffer, BUFFER_SIZE);
+	send(bob, buffer, strlen(buffer), 0);    //A8
 
 	fscanf(rndm, "%s", buffer);
-	send(bob, buffer, BUFFER_SIZE, 0);    //A9
-	bzero(buffer, BUFFER_SIZE);
+	send(bob, buffer, strlen(buffer), 0);    //A9
 
 	fclose(rndm);
 	printf("Alice has sent randomly generated numbers\n");
@@ -256,7 +250,7 @@ int main(int argc, char** argv)
 
 	recv(bob, buffer, 350, 0);    //B1
 	fprintf(bob_c, "%s", buffer);
-	bzero(buffer, BUFFER_SIZE);
+	bzero(buffer, strlen(buffer));
 
 	fclose(bob_c);
 	printf("Alice has recieved c from Bob\n");
@@ -280,12 +274,10 @@ int main(int argc, char** argv)
 	enc_mes = fopen("enc_messages.txt", "r");
 	fscanf(enc_mes, "%s",buffer);
 	strcat(buffer,"\n");
-	send(bob, buffer, BUFFER_SIZE, 0);    //A10
-	bzero(buffer, BUFFER_SIZE);
+	send(bob, buffer, strlen(buffer), 0);    //A10
 
 	fscanf(enc_mes,"%s",buffer);
-	send(bob, buffer, BUFFER_SIZE, 0);    //A11
-	bzero(buffer, BUFFER_SIZE);
+	send(bob, buffer, strlen(buffer), 0);    //A11
 
 	fclose(enc_mes);
 	printf("Encrypted messages sent to Bob\n");
@@ -294,4 +286,12 @@ int main(int argc, char** argv)
 	close(bob);
 	printf("Transfer Completed\n");	
 
+	free(l1);
+	free(l2);
+	free(l3);
+	free(l4);
+	free(e1);
+	free(e2);
+	free(e3);
+	free(e4);
 }
