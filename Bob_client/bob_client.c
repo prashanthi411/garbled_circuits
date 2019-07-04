@@ -189,7 +189,7 @@ int main(int argc, char** argv)
 	//BOB GATE IS EXECUTED HERE FOR THE FINAL COMPUTATION
 	//Fork to execute bob_gate
 	pid=fork();
-	printf("now bob_gate is going to be executed\n");
+	
 	//child process
 	if(pid==0)
 	{

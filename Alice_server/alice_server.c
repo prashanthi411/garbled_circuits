@@ -14,7 +14,7 @@
 int main(int argc, char** argv)
 {
 	int bob, alice, len, input;
-	pid_t pid1, pid2, pid3, pid4;
+	pid_t pid;
 
 	FILE *ciph, *hash, *rndm, *bob_c, *enc_mes, *alabel, *blabel, *initvec;
 	alabel = fopen("alabel.txt", "r+");
@@ -89,10 +89,10 @@ int main(int argc, char** argv)
 
 
 	//Fork to execute al_gate
-	pid1 = fork();
+	pid = fork();
 
 	//child process
-	if(pid1 == 0)
+	if(pid == 0)
 	{
 		//child process al_gate
 		static char *argv[] = {"al_gate", NULL};
@@ -223,10 +223,10 @@ int main(int argc, char** argv)
 /***********************************Oblivious Transfer for sending b0/b1*******************************************/
 
 	//Fork to execute alice1
-	pid2 = fork();
+	pid = fork();
 
 	//child process
-	if(pid2 == 0)
+	if(pid == 0)
 	{
 		//Execute alice1
 		static char *argv[] = {"alice1", NULL};
@@ -262,10 +262,10 @@ int main(int argc, char** argv)
 	printf("Alice has recieved c from Bob\n");
 
 	//Fork to execute alice2
-	pid3=fork();
+	pid = fork();
 
 	//child process
-	if(pid3==0)
+	if(pid==0)
 	{
 		//child process alice2
 		static char *argv[]={"alice2",NULL};

@@ -121,11 +121,11 @@ int main(){
 	int len;
 	//encrypting using key1
 	op_0 = pad(op_0);
-	printf("op_0 : %s\n", op_0);
+//	printf("op_0 : %s\n", op_0);
 	AES_init_ctx(ctx, k1);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_0, 48);	
-	printf("op_0: %s\n", op_0);
+//	printf("op_0: %s\n", op_0);
 	len = strlen(op_0);
 	fprintf(ciph, "%d\n", len);
 	fprintf(ciph, "%s\n", op_0);
@@ -136,7 +136,7 @@ int main(){
 	AES_init_ctx(ctx, k2);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_0, 48);
-	printf("op_0: %s\n", op_0);
+//	printf("op_0: %s\n", op_0);
 	len = strlen(op_0);
 	fprintf(ciph, "%d\n", len);
 	fprintf(ciph, "%s\n", op_0);
@@ -147,7 +147,7 @@ int main(){
 	AES_init_ctx(ctx, k3);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_0, 48);
-	printf("op_0: %s\n", op_0);
+//	printf("op_0: %s\n", op_0);
 	len = strlen(op_0);
 	fprintf(ciph, "%d\n", len);
 	fprintf(ciph, "%s\n", op_0);
@@ -157,7 +157,7 @@ int main(){
 	AES_init_ctx(ctx, k4);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_1, 48);
-	printf("op_1: %s\n", op_1);
+//	printf("op_1: %s\n", op_1);
 	len = strlen(op_1);
 	fprintf(ciph, "%d\n", len);
 	fprintf(ciph, "%s\n", op_1);
