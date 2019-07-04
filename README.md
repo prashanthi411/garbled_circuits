@@ -1,4 +1,6 @@
-run alice_server from the command line of the device that needs to send the numbers.
+Server:-
+
+Run alice_server from the command line of the device that needs to send the numbers.
 
 A port number should be provided as a command line argument.
 
