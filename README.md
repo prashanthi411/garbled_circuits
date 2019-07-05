@@ -38,6 +38,7 @@ SHA3 -- https://github.com/mjosaarinen/tiny_sha3
 
 Server:
 
+
 "alabel.txt" contains the labels for the secret keys for Alice's inputs.
 
 "b_label.txt" contains the labels for the secret keys for Bob's inputs.
@@ -66,8 +67,8 @@ Server:
 
 
 
-
 Client: 
+
 
 "bob_client.c" is the main program that is to be run. 
 
