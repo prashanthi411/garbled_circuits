@@ -235,8 +235,10 @@ int main(int argc, char** argv)
 	}
 
 	//Waits for execution of alice1 to finish
-	wait(NULL);
-
+	else{
+		
+		wait(NULL);
+	}
 	//Send randomly generated nymbers by alice1 to bob
 	rndm = fopen("randomx.txt", "r");
 
