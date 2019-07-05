@@ -39,34 +39,59 @@ SHA3 -- https://github.com/mjosaarinen/tiny_sha3
 Server:
 
 "alabel.txt" contains the labels for the secret keys for Alice's inputs.
+
 "b_label.txt" contains the labels for the secret keys for Bob's inputs.
+
 "op_label.txt" contains the labels for the output values(op_0 and op_1) of the gate.
+
 "aes.c" and "aes.h" contain implementation of AES that are used in the program.
+
 "sha3.c" and "sha3.h" contain implementation of SHA3 that are used in the program.
+
 "alice_server.c" is the main program that is to be run. 
+
 "alice_server" is the executable for "alice_server.c".
+
 "padding.h" is the headerfile which is used for PKCS7 padding in the program.
+
 "alice_gate.c" is where the garbled gate is implemented.
+
 "al_gate" is the executable for "alice_gate.c".
+
 "initvec.txt" contains the generated initialisation vector.
+
 "hash.txt" contains the hashes of the output value labels, op_0 and op_1 which are present in op_label.txt.
+
 "ciph.txt" contains the AES encryptions of the generated output labels (present in op_label.txt).
+
 
 
 
 Client: 
+
 "bob_client.c" is the main program that is to be run. 
+
 "bob_client" is the executable for "bob_client.c".
+
 "al_input" contains the label corresponding to Alice's input (a0 if Alice's input is 0; a1 if it's 1).
+
 "bob_gate.c" is where the garbled gate is decrypted.
+
 "bob_gate" is the executable for "bob_gate.c".
+
 "initvec.txt" contains the generated initialisation vector.
+
 "hash.txt" contains the hashes of the output value labels, op_0 and op_1 which are present in op_label.txt.
+
 "ciph.txt" contains the AES encryptions of the generated output labels (present in op_label.txt).
+
 "aes.c" and "aes.h" contain implementation of AES that are used in the program.
+
 "sha3.c" and "sha3.h" contain implementation of SHA3 that are used in the program.
 
+
 For OT (part of alice_server.c): 
+
 rsa.h contains common functions required for rsa implementation using gmp
 
 strings.txt contains the two messages, the first corresponding to Bob selecting 0 and the second corresponding to him selecting 1.
