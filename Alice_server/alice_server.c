@@ -114,6 +114,8 @@ int main(int argc, char** argv)
 	strcat(iniv, "\n");
 	send(bob, iniv, strlen(iniv), 0);    //A0
 	bzero(iniv, strlen(iniv));
+	int temp;
+	scanf("%d",&temp);
 
 
 /*********************************************************/

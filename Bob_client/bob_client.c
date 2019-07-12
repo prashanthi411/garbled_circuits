@@ -43,9 +43,11 @@ int main(int argc, char** argv)
 	initvec = fopen("initvec.txt", "w");
 
 	printf("Receiving iv from Alice...\n");
-	recv(alice, buffer, BUFFER_SIZE, 0);    //A1
+	recv(alice, buffer, BUFFER_SIZE, 0);    //A0
 	fprintf(initvec, "%s\n", buffer);
 	bzero(buffer, strlen(buffer));
+	printf("iv received....\n");
+	fclose(initvec);
 
 	/*****************/
 	printf("Receiving garbled table from Alice...\n");
