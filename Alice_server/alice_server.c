@@ -115,6 +115,7 @@ int main(int argc, char** argv)
 	send(bob, iniv, strlen(iniv), 0);    //A0
 	bzero(iniv, strlen(iniv));
 	int temp;
+	printf("Enter any number: ");
 	scanf("%d",&temp);
 
 
