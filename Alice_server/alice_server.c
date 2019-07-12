@@ -114,6 +114,10 @@ int main(int argc, char** argv)
 	strcat(iniv, "\n");
 	send(bob, iniv, strlen(iniv), 0);    //A0
 	bzero(iniv, strlen(iniv));
+	fclose(initvec);
+	
+/************************Test***********/
+
 	int temp;
 	printf("Enter any number: ");
 	scanf("%d",&temp);
@@ -200,6 +204,8 @@ int main(int argc, char** argv)
 	strcat(h_op1, "\n");
 	send(bob, h_op1, strlen(h_op1), 0);     //A6
 
+	fclose(hash);
+
 /**************************************************************************************************************/
 
 	printf("Sending keys to Bob...\n");
@@ -223,6 +229,9 @@ int main(int argc, char** argv)
 		send(bob, a_1, strlen(a_1), 0);    //A7
 	}
 
+	fclose(alabel);
+	fclose(blabel);
+
 /***********************************Oblivious Transfer for sending b0/b1*******************************************/
 
 	//Fork to execute alice1
@@ -238,10 +247,7 @@ int main(int argc, char** argv)
 	}
 
 	//Waits for execution of alice1 to finish
-	else{
-		
-		wait(NULL);
-	}
+	wait(NULL);
 	//Send randomly generated nymbers by alice1 to bob
 	rndm = fopen("randomx.txt", "r");
 
