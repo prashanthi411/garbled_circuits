@@ -74,14 +74,17 @@ int main(int argc, char** argv)
 	fprintf(ciph, "%s\n", buffer);
 	bzero(buffer, strlen(buffer));
 
+	fclose(ciph);
+
 	printf("Garbled table has been received from Alice!\n");
 
-	printf("Now receiving the hashes of the encrypted outputs...\n");
+	
 
 
 	/*********************************Receiving hashes**********************************/
 	
-	
+	printf("Now receiving the hashes of the encrypted outputs...\n");
+
 	hash = fopen("hash.txt", "w");
 
 	recv(alice, buffer, BUFFER_SIZE, 0);    //A5
@@ -92,6 +95,10 @@ int main(int argc, char** argv)
 	fprintf(hash, "%s\n", buffer);
 	bzero(buffer, strlen(buffer));
 
+	fclose(hash);
+
+	printf("Hashes received....\n");
+
 
 	/****************************Receiving Alice's input label********************************/
 	
@@ -100,6 +107,8 @@ int main(int argc, char** argv)
 	recv(alice, buffer, BUFFER_SIZE, 0);    //A7
 	fprintf(al_input, "%s\n", buffer);
 	bzero(buffer, strlen(buffer));
+
+	fclose(al_input);
 
 
 	/***********************************Oblivious Transfer for receiving b0/b1*******************************************/
