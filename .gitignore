@@ -17,3 +17,6 @@ blabel.txt
 ciph.txt
 initvec.txt
 oplabel.txt
+bob_message.txt
+keys.txt
+hash.txt
