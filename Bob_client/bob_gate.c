@@ -48,6 +48,7 @@ int main(){
 
 	printf("key: %s\n", key);
 
+	//Scanning encrypted gates from file ciph
 	fscanf(ciph, "%d", &n);
 	e1=(char *)malloc((n+1)*sizeof(char));
 	for (int i = 0; i < n; ++i)
