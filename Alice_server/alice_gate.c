@@ -3,9 +3,9 @@
 #include<stdlib.h> 
 #include<stdint.h>
 #include<string.h>
-#include "aes.h"
-#include "aes.c"
-#include "padding.h"
+#include "../aes.h"
+#include "../aes.c"
+#include "../padding.h"
 #include "sha3.c"
 
 #define KEY_LENGTH 128
@@ -166,11 +166,11 @@ int main(){
 	mpz_get_str(op_1, 10, c1); 
 	sha3(op_0, 39, op_0, 39);
 	sha3(op_1, 39, op_1, 39);
-	printf("length of op_0 after sha3: %d\n", strlen(op_0));
-	printf("length of op_1 after sha3: %d\n", strlen(op_1));
-	fprintf(hash, "%d\n", strlen(op_0));
+	printf("length of op_0 after sha3: %ld\n", strlen(op_0));
+	printf("length of op_1 after sha3: %ld\n", strlen(op_1));
+	fprintf(hash, "%ld\n", strlen(op_0));
 	fprintf(hash, "%s\n", op_0);
-	fprintf(hash, "%d\n", strlen(op_1));
+	fprintf(hash, "%ld\n", strlen(op_1));
 	fprintf(hash, "%s", op_1);
 
 	//clearing space for all variables

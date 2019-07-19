@@ -3,10 +3,11 @@
 #include<stdlib.h> 
 #include<stdint.h>
 #include<string.h>
-#include "aes.h"
-#include "aes.c"
-#include "padding.h"
+#include "../aes.h"
+#include "../aes.c"
+#include "../padding.h"
 #include "sha3.c"
+
 #define KEY_LENGTH 128
 
 int main(){
@@ -53,28 +54,28 @@ int main(){
 	e1=(char *)malloc((n+1)*sizeof(char));
 	for (int i = 0; i < n; ++i)
 	{
-		e1[i] = fgetc(hash);
+		e1[i] = fgetc(ciph);
 	}
 
 	fscanf(ciph, "%d", &n);
 	e2=(char *)malloc((n+1)*sizeof(char));
 	for (int i = 0; i < n; ++i)
 	{
-		e2[i] = fgetc(hash);
+		e2[i] = fgetc(ciph);
 	}
 
 	fscanf(ciph, "%d", &n);
 	e3=(char *)malloc((n+1)*sizeof(char));
 	for (int i = 0; i < n; ++i)
 	{
-		e3[i] = fgetc(hash);
+		e3[i] = fgetc(ciph);
 	}
 
 	fscanf(ciph, "%d", &n);
 	e4=(char *)malloc((n+1)*sizeof(char));
 	for (int i = 0; i < n; ++i)
 	{
-		e4[i] = fgetc(hash);
+		e4[i] = fgetc(ciph);
 	}
 
 	char *iniv = (char*)malloc(20*sizeof(char));
