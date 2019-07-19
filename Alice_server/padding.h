@@ -28,6 +28,6 @@ int de_pad(char* plaintext){
 
 	pad_value = ((int)plaintext[length-1])-64;
 	plaintext =  (char *)realloc(plaintext, (length-pad_value+1)*sizeof(char));
-//	printf("unpadded : %s\n", plaintext);
-	return pad_value;
+	printf("unpadded : %s\n", plaintext);
+	return plaintext;
 }
