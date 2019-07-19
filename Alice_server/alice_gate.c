@@ -117,7 +117,6 @@ int main(){
 	fprintf(keys, "%s\n", k4);
 
 	/*****************************************/
-
 	int len;
 	//encrypting using key1
 	op_0 = pad(op_0);
@@ -167,8 +166,12 @@ int main(){
 	mpz_get_str(op_1, 10, c1); 
 	sha3(op_0, 39, op_0, 39);
 	sha3(op_1, 39, op_1, 39);
+	printf("length of op_0 after sha3: %d\n", strlen(op_0));
+	printf("length of op_1 after sha3: %d\n", strlen(op_1));
+	fprintf(hash, "%d\n", strlen(op_0));
 	fprintf(hash, "%s\n", op_0);
-	fprintf(hash, "%s\n", op_1);
+	fprintf(hash, "%d\n", strlen(op_1));
+	fprintf(hash, "%s", op_1);
 
 	//clearing space for all variables
 	mpz_clear(a0);

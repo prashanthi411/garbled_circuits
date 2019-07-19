@@ -15,10 +15,11 @@ int main(int argc, char** argv)
 {
 	int bob, alice, len, input;
 	pid_t pid;
-
+	char buf1[10], buf2[10], buf3[10], buf4[10];
 	FILE *ciph, *hash, *rndm, *bob_c, *enc_mes, *alabel, *blabel, *initvec;
 	alabel = fopen("alabel.txt", "r+");
 	blabel = fopen("blabel.txt", "r+");
+	FILE *check = fopen("check.txt", "w");
 	
 	//variables for reading encryptions from the file "ciph.txt"
 	char *e1, *e2, *e3, *e4, *h_op0, *h_op1, *iniv; //h_op0 is the hashed encrypted output 0
@@ -31,13 +32,13 @@ int main(int argc, char** argv)
 
 	//variables keys
 	char *a_0, *b_0, *a_1, *b_1, *x_0, *x_1, *c; 
-	a_0 = (char*) malloc(300*sizeof(char));
-	b_0 = (char*) malloc(300*sizeof(char));
-	a_1 = (char*) malloc(300*sizeof(char));
-	b_1 = (char*) malloc(300*sizeof(char));
-	x_0 = (char*) malloc(300*sizeof(char));
-	x_1 = (char*) malloc(300*sizeof(char));
-	c = (char*) malloc(300*sizeof(char));
+	a_0 = (char*) malloc(350*sizeof(char));
+	b_0 = (char*) malloc(350*sizeof(char));
+	a_1 = (char*) malloc(350*sizeof(char));
+	b_1 = (char*) malloc(350*sizeof(char));
+	x_0 = (char*) malloc(350*sizeof(char));
+	x_1 = (char*) malloc(350*sizeof(char));
+	c = (char*) malloc(350*sizeof(char));
 
 
 
@@ -114,14 +115,10 @@ int main(int argc, char** argv)
 	strcat(iniv, "\n");
 	send(bob, iniv, strlen(iniv), 0);    //A0
 	bzero(iniv, strlen(iniv));
-	fclose(initvec);
+	/*int temp;
+	bzero(iniv, strlen(iniv));
+	fclose(initvec);*/
 	
-/************************Test***********/
-
-	int temp;
-	printf("Enter any number: ");
-	scanf("%d",&temp);
-
 
 /*********************************************************/
 
@@ -132,77 +129,100 @@ int main(int argc, char** argv)
 	/*************here, we send e1, e2, e3, e4 in the same order****************************************************/
 
 	ciph = fopen("ciph.txt", "r");
-	
+
 	fscanf(ciph, "%d\n", l1);	
 	n1 = (int)(*l1);
+	int con = htonl(n1);
+	send(bob, &con, 4, 0); //sending length of each string to bob.
 	e1 = (char*)malloc((n1+2)*sizeof(char));
 	for (int i = 0; i < n1; ++i)
 	{
 		e1[i] = fgetc(ciph);
 	}
-	strcat(e1, "\n");
-	send(bob, e1, strlen(e1), 0);   //A1
-	//bzero(e1, strlen(e1));
+	printf("e1: %s\n", e1);
+	printf("length of e1: %ld\n", strlen(e1));
+	send(bob, e1, n1, 0);   //A1
+	printf("sent!\n");
+
 
 	fscanf(ciph, "%d\n", l2);	
 	n2 = (int)(*l2);
+	con = htonl(n2);
+	send(bob, &con, 4, 0);
 	e2 = (char*)malloc((n2+2)*sizeof(char));
 	for (int i = 0; i < n2; ++i)
 	{
 		e2[i] = fgetc(ciph);
-	}		
-	strcat(e2, "\n");
-	send(bob, e2, strlen(e2), 0);   //A2
-	//bzero(e2, strlen(e2));
+	}
+	printf("e2: %s\n", e2);
+	printf("length of e2: %ld\n", strlen(e2));
+	send(bob, e2, n2, 0);   //A2
+	printf("sent!\n");
+		
 
 	fscanf(ciph, "%d\n", l3);	
 	n3 = (int)(*l3);
+	con = htonl(n3);
+	send(bob, &con, 4, 0);
 	e3 = (char*)malloc((n3+2)*sizeof(char));
 	for (int i = 0; i < n3; ++i)
 	{
 		e3[i] = fgetc(ciph);
-	}	
-	strcat(e3, "\n");
-	send(bob, e3, strlen(e3), 0);    //A3
-	//bzero(e3, strlen(e3));
+	}
+	printf("e3: %s\n", e3);
+	printf("length of e3: %ld\n", strlen(e3));
+	send(bob, e3, n3, 0);   //A3
+	printf("sent!\n");
+
 
 	fscanf(ciph, "%d\n", l4);	
 	n4 = (int)(*l4);
+	con = htonl(n4);
+	send(bob, &con, 4, 0);
 	e4 = (char*)malloc((n4+2)*sizeof(char));
 	for (int i = 0; i < n4; ++i)
 	{
 		e4[i] = fgetc(ciph);
-	}	
-	strcat(e4, "\n");
-	send(bob, e4, strlen(e4), 0);     //A4
-	//bzero(e4, strlen(e4));
+	}
+	printf("e4: %s\n", e4);
+	printf("length of e4: %ld\n", strlen(e4));
+	send(bob, e4, n4, 0);   //A4
+	printf("sent!\n");
 
+
+	fflush(ciph);
 	fclose(ciph);
 	printf("Alice has sent garbled table to Bob.\n");
+
 
 	//Sending the hashes of op_0 and op_1 to Bob
 	hash = fopen("hash.txt", "r");
 
-	h_op0 = (char*)malloc(42*sizeof(char));
-	h_op1 = (char*)malloc(42*sizeof(char));
-	for (int i = 0; i < 39; ++i)
+	fscanf(hash, "%d\n", l1);
+	n1 = (int)(*l1);
+	con = htonl(n1);
+	send(bob, &con, 4, 0);
+	h_op0 = (char*)malloc((n1+2)*sizeof(char));
+	for (int i = 0; i < n1; ++i)
 	{
 		h_op0[i] = fgetc(hash);
 	}
+	send(bob, h_op0, n1, 0);    //A5
 
-	fscanf(hash, "\n");
-	for (int i = 0; i < 39; ++i)
+	fscanf(hash, "%d\n", l2);
+	n2 = (int)(*l2);
+	con = htonl(n2);
+	send(bob, &con, 4, 0);
+	h_op1 = (char*)malloc((n1+2)*sizeof(char));
+	for (int i = 0; i < n2; ++i)
 	{
 		h_op1[i] = fgetc(hash);
 	}
+	send(bob, h_op1, n1, 0);     //A6
 
+	printf("length of op_0 when read fully from file: %d\n", strlen(h_op0));
+	printf("length of op_1 when read fully from file: %d\n", strlen(h_op1));
 	printf("Sending the hashes of encrypted outputs...\n");
-
-	strcat(h_op0, "\n");
-	send(bob, h_op0, strlen(h_op0), 0);    //A5
-
-	strcat(h_op1, "\n");
-	send(bob, h_op1, strlen(h_op1), 0);     //A6
 
 	fclose(hash);
 
@@ -216,17 +236,18 @@ int main(int argc, char** argv)
 	fscanf(alabel, "%s", a_0);
 	fscanf(alabel, "\n");
 	fscanf(alabel, "%s", a_1);
-	printf("a0: %s\n", a_0);
 	fscanf(blabel, "%s", b_0);
 	fscanf(blabel, "\n");
 	fscanf(blabel, "%s", b_1);
 	if(input == 0){
 		strcat(a_0, "\n");
 		send(bob, a_0, strlen(a_0), 0);    //A7
+		printf("a0: %s\n", a_0);
 	}
 	else{
 		strcat(a_1, "\n");
 		send(bob, a_1, strlen(a_1), 0);    //A7
+		printf("a1: %s\n", a_1);
 	}
 
 	fclose(alabel);
@@ -252,10 +273,15 @@ int main(int argc, char** argv)
 	rndm = fopen("randomx.txt", "r");
 
 	fscanf(rndm, "%s", x_0);
-	strcat(x_0, "\n");
+	printf("strlen(x_0): %d\n", strlen(x_0));
+	con = htonl(strlen(x_0));
+	send(bob, &con, 4, 0);
 	send(bob, x_0, strlen(x_0), 0);    //A8
 
 	fscanf(rndm, "%s", x_1);
+	printf("strlen(x_0): %d\n", strlen(x_0));
+	con = htonl(strlen(x_1));
+	send(bob, &con, 4, 0);
 	send(bob, x_1, strlen(x_1), 0);    //A9
 
 	fclose(rndm);
@@ -264,8 +290,11 @@ int main(int argc, char** argv)
 	
 	//Recieve the c generated by Bob and store in bob_c.txt
 	bob_c = fopen("bob_c.txt", "w");
-
-	recv(bob, c, 350, 0);    //B1
+	int convert, n;
+	recv(bob, &convert, 4, 0);
+	n = ntohl(convert);
+	printf("n = %d\n", n);
+	recv(bob, c, n, 0);    //B1
 	fprintf(bob_c, "%s", c);
 	bzero(c, strlen(c));
 
@@ -290,10 +319,15 @@ int main(int argc, char** argv)
 	//Send encrypted messages generated by alice2 to Bob
 	enc_mes = fopen("enc_messages.txt", "r");
 	fscanf(enc_mes, "%s",buffer);
-	strcat(buffer,"\n");
+	n1 = strlen(buffer);
+	con = htonl(n1);
+	send(bob, &con, 4, 0);
 	send(bob, buffer, strlen(buffer), 0);    //A10
 
 	fscanf(enc_mes,"%s",buffer);
+	n1 = strlen(buffer);
+	con = htonl(n1);
+	send(bob, &con, 4, 0);
 	send(bob, buffer, strlen(buffer), 0);    //A11
 
 	fclose(enc_mes);
