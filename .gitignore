@@ -22,3 +22,11 @@ Alice_server/keys.txt
 Alice_server/hash.txt
 bob_server
 alice_server
+Bob_client/al_input.txt
+Bob_client/bob_c.txt
+Bob_client/bob_client
+Bob_client/bob_private.txt
+Bob_client/enc_messages.txt
+Bob_client/hash.txt
+Bob_client/randomx.txt
+
