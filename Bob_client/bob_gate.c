@@ -14,7 +14,7 @@ int main(){
 	struct AES_ctx* ctx;
 	ctx = (struct AES_ctx*)malloc(sizeof(struct AES_ctx));
 
-	FILE *ciph, *initvec, *hash, *al_input, *message;
+	FILE *ciph, *initvec, *hash, *al_input, *message, *testhash;
 	char *key = malloc(128*sizeof(char));
 	char *e1 = malloc(180*sizeof(char));
 	char *e2 = malloc(180*sizeof(char));
@@ -30,7 +30,7 @@ int main(){
 	hash = fopen("hash.txt", "r");
 	al_input = fopen("al_input.txt", "r");
 	message = fopen("bob_message.txt", "r");
-
+//	testhash = fopen("testhash.txt", "w");
 
 	mpz_t a, b, k, temp, key_len; //alice's input key: a ; bob's input key: b.
 	mpz_init(a);
@@ -66,26 +66,38 @@ int main(){
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e1, 48);
-	de_pad(e1);
+	printf("unpadding e1\n");
+	e1 = de_pad(e1);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e2, 48);
-	de_pad(e2);
+	printf("unpadding e2\n");
+	e2 = de_pad(e2);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e3, 48);
-	de_pad(e3);
+	printf("unpadding e3\n");
+	e3 = de_pad(e3);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e4, 48);
-	de_pad(e4);
+	printf("unpadding e4\n");
+	e4 = de_pad(e4);
 	
-	fscanf(hash, "%s", h_op0);
+	for (int i = 0; i < 39; ++i)
+	{
+		h_op0[i] = fgetc(hash);
+	}
 	fscanf(hash, "\n");
-	fscanf(hash, "%s", h_op1);
+	for (int i = 0; i < 39; ++i)
+	{
+		h_op1[i] = fgetc(hash);
+	}
+/*	fprintf(testhash, "%s\n", h_op0);
+	fprintf(testhash, "%s\n", h_op1);*/
 
 	sha3(e1, 39, e1, 39);
 	sha3(e2, 39, e2, 39);
