@@ -220,9 +220,9 @@ int main(int argc, char** argv)
 	}
 	send(bob, h_op1, n1, 0);     //A6
 
-	printf("length of op_0 when read fully from file: %d\n", strlen(h_op0));
+	/*printf("length of op_0 when read fully from file: %d\n", strlen(h_op0));
 	printf("length of op_1 when read fully from file: %d\n", strlen(h_op1));
-	printf("Sending the hashes of encrypted outputs...\n");
+	*/printf("Sending the hashes of encrypted outputs...\n");
 
 	fclose(hash);
 
@@ -279,7 +279,6 @@ int main(int argc, char** argv)
 	send(bob, x_0, strlen(x_0), 0);    //A8
 
 	fscanf(rndm, "%s", x_1);
-	printf("strlen(x_0): %d\n", strlen(x_0));
 	con = htonl(strlen(x_1));
 	send(bob, &con, 4, 0);
 	send(bob, x_1, strlen(x_1), 0);    //A9

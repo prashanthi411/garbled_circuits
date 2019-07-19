@@ -30,7 +30,7 @@ int main(){
 	hash = fopen("hash.txt", "r");
 	al_input = fopen("al_input.txt", "r");
 	message = fopen("bob_message.txt", "r");
-//	testhash = fopen("testhash.txt", "w");
+	testhash = fopen("testhash.txt", "w");
 
 	mpz_t a, b, k, temp, key_len; //alice's input key: a ; bob's input key: b.
 	mpz_init(a);
@@ -68,25 +68,29 @@ int main(){
 	AES_CBC_decrypt_buffer(ctx, e1, 48);
 	printf("unpadding e1\n");
 	e1 = de_pad(e1);
+	printf("%s\n", e1);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e2, 48);
 	printf("unpadding e2\n");
 	e2 = de_pad(e2);
+	printf("%s\n", e2);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e3, 48);
 	printf("unpadding e3\n");
 	e3 = de_pad(e3);
+	printf("%s\n", e3);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e4, 48);
 	printf("unpadding e4\n");
 	e4 = de_pad(e4);
-	
+	printf("%s\n", e4);
+
 	for (int i = 0; i < 39; ++i)
 	{
 		h_op0[i] = fgetc(hash);
@@ -96,45 +100,47 @@ int main(){
 	{
 		h_op1[i] = fgetc(hash);
 	}
-/*	fprintf(testhash, "%s\n", h_op0);
-	fprintf(testhash, "%s\n", h_op1);*/
+	fprintf(testhash, "%s\n", h_op0);
+	fprintf(testhash, "%s", h_op1);
 
 	sha3(e1, 39, e1, 39);
 	sha3(e2, 39, e2, 39);
 	sha3(e3, 39, e3, 39);
 	sha3(e4, 39, e4, 39);
+	printf("e4: %s\n", e4);
+	fprintf(testhash, "%s\n", e4);
 
 	printf("Computing output...\n");
 
-	if(strcat(e1, h_op0)==0){
+	if(strcmp(e1, h_op0)==0){
 		output = 0;
 		printf("e1; Output is: %d\n", output);
 	}
-	else if(strcat(e1, h_op1)==0){
+	else if(strcmp(e1, h_op1)==0){
 		output = 1;
 		printf("e1; Output is: %d\n", output);
 	}
-	else if(strcat(e2, h_op0)==0){
+	else if(strcmp(e2, h_op0)==0){
 		output = 0;
 		printf("e2; Output is: %d\n", output);
 	}
-	else if(strcat(e2, h_op1)==0){
+	else if(strcmp(e2, h_op1)==0){
 		output = 1;
 		printf("e2; Output is: %d\n", output);
 	}
-	else if(strcat(e2, h_op0)==0){
+	else if(strcmp(e3, h_op0)==0){
 		output = 0;
 		printf("e3; Output is: %d\n", output);
 	}
-	else if(strcat(e2, h_op1)==0){
+	else if(strcmp(e3, h_op1)==0){
 		output = 1;
 		printf("e3; Output is: %d\n", output);
 	}
-	else if(strcat(e2, h_op0)==0){
+	else if(strcmp(e4, h_op0)==0){
 		output = 0;
 		printf("e4; Output is: %d\n", output);
 	}
-	else if(strcat(e2, h_op1)==0){
+	else if(strcmp(e4, h_op1)==0){
 		output = 1;
 		printf("e4; Output is: %d\n", output);
 	}

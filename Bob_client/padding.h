@@ -23,13 +23,16 @@ char * pad(char* plaintext){
 
 char *de_pad(char* plaintext){
 	int pad_value, length;
-	char* unpadded;
+	char *unpadded;
 	length = strlen(plaintext);
-	printf("%d\n", length);
-	printf("plaintext: %s\n", plaintext);
-
+	//printf("%d\n", length);
+	//printf("plaintext: %s\n", plaintext);
 	pad_value = ((int)((char)plaintext[length-1]))-64;
-	unpadded =  (char *)realloc(plaintext, (length-pad_value)*sizeof(char));
-	printf("unpadded : %s\n", unpadded);
+	//printf("length-pad_value = %d\n", length-pad_value);
+	unpadded =  (char *)malloc((length-pad_value)*sizeof(char));
+	for (int i=0; i<length-pad_value; i++){
+		unpadded[i] = plaintext[i]; 
+	}
+	free(plaintext);
 	return unpadded;
 }
