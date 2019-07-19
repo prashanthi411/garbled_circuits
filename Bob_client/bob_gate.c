@@ -66,19 +66,22 @@ int main(){
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e1, 48);
+	de_pad(e1);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e2, 48);
+	de_pad(e2);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e3, 48);
+	de_pad(e3);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e4, 48);
-
+	de_pad(e4);
 	
 	fscanf(hash, "%s", h_op0);
 	fscanf(hash, "\n");
