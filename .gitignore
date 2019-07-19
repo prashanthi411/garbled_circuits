@@ -20,3 +20,5 @@ oplabel.txt
 Bob_client/bob_message.txt
 Alice_server/keys.txt
 Alice_server/hash.txt
+bob_server
+alice_server
