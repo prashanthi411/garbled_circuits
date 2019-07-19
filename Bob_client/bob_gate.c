@@ -10,16 +10,13 @@
 #define KEY_LENGTH 128
 
 int main(){
-	int output;
+	int output,n;
 	struct AES_ctx* ctx;
 	ctx = (struct AES_ctx*)malloc(sizeof(struct AES_ctx));
 
 	FILE *ciph, *initvec, *hash, *al_input, *message, *testhash;
 	char *key = malloc(128*sizeof(char));
-	char *e1 = malloc(180*sizeof(char));
-	char *e2 = malloc(180*sizeof(char));
-	char *e3 = malloc(180*sizeof(char));
-	char *e4 = malloc(180*sizeof(char));
+	char *e1, *e2, *e3, *e4;
 	char *h_op0 = malloc(45*sizeof(char));
 	char *h_op1 = malloc(45*sizeof(char));
 
@@ -51,13 +48,33 @@ int main(){
 
 	printf("key: %s\n", key);
 
-	fscanf(ciph, "%s", e1);
-	fscanf(ciph, "\n");
-	fscanf(ciph, "%s", e2);
-	fscanf(ciph, "\n");
-	fscanf(ciph, "%s", e3);
-	fscanf(ciph, "\n");
-	fscanf(ciph, "%s", e4);
+	fscanf(ciph, "%d", &n);
+	e1=(char *)malloc((n+1)*sizeof(char));
+	for (int i = 0; i < n; ++i)
+	{
+		e1[i] = fgetc(hash);
+	}
+
+	fscanf(ciph, "%d", &n);
+	e2=(char *)malloc((n+1)*sizeof(char));
+	for (int i = 0; i < n; ++i)
+	{
+		e2[i] = fgetc(hash);
+	}
+
+	fscanf(ciph, "%d", &n);
+	e3=(char *)malloc((n+1)*sizeof(char));
+	for (int i = 0; i < n; ++i)
+	{
+		e3[i] = fgetc(hash);
+	}
+
+	fscanf(ciph, "%d", &n);
+	e4=(char *)malloc((n+1)*sizeof(char));
+	for (int i = 0; i < n; ++i)
+	{
+		e4[i] = fgetc(hash);
+	}
 
 	char *iniv = (char*)malloc(20*sizeof(char));
 	fscanf(initvec, "%s", iniv);

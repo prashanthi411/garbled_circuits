@@ -66,6 +66,8 @@ int main(int argc, char** argv)
 	recv(alice, &n, 4, 0); //receiving length of each string from alice. 
 	n = ntohl(n);
 	printf("n1= %d\n", n);
+	fprintf(ciph, "%d\n", n);
+	
 	recv(alice, buffer, n, 0);    //A1 //the problem's here, in the size1
 	printf("%s\n", buffer);
 	printf("received!\n");
@@ -75,6 +77,8 @@ int main(int argc, char** argv)
 	recv(alice, &n, 4, 0);
 	n = ntohl(n);
 	printf("n2= %d\n", n);
+	fprintf(ciph, "%d\n", n);
+	
 	recv(alice, buffer, n, 0);    //A2 //the problem's here, in the size1
 	printf("%s\n", buffer);
 	printf("received!\n");
@@ -84,6 +88,8 @@ int main(int argc, char** argv)
 	recv(alice, &n, 4, 0);
 	n = ntohl(n);
 	printf("n3= %d\n", n);
+	fprintf(ciph, "%d\n", n);
+
 	recv(alice, buffer, n, 0);    //A3 //the problem's here, in the size1
 	printf("%s\n", buffer);
 	printf("received!\n");
@@ -93,6 +99,8 @@ int main(int argc, char** argv)
 	recv(alice, &n, 4, 0);
 	n = ntohl(n);
 	printf("n4= %d\n", n);
+	fprintf(ciph, "%d\n", n);
+
 	recv(alice, buffer, n, 0);    //A4 //the problem's here, in the size1
 	printf("%s\n", buffer);
 	printf("received!\n");
@@ -264,6 +272,7 @@ int main(int argc, char** argv)
 		execv("bob_gate", argv);
 		exit(-1);
 	}
+	wait(NULL);
 
 	printf("bob gate has been executed\n");
 }
