@@ -130,7 +130,7 @@ int main(int argc, char** argv)
 
 	ciph = fopen("ciph.txt", "r");
 
-	fscanf(ciph, "%d\n", l1);	
+	fscanf(ciph, "%d", l1);	
 	n1 = (int)(*l1);
 	int con = htonl(n1);
 	send(bob, &con, 4, 0); //sending length of each string to bob.
@@ -145,7 +145,7 @@ int main(int argc, char** argv)
 	printf("sent!\n");
 
 
-	fscanf(ciph, "%d\n", l2);	
+	fscanf(ciph, "%d", l2);	
 	n2 = (int)(*l2);
 	con = htonl(n2);
 	send(bob, &con, 4, 0);
@@ -160,7 +160,7 @@ int main(int argc, char** argv)
 	printf("sent!\n");
 		
 
-	fscanf(ciph, "%d\n", l3);	
+	fscanf(ciph, "%d", l3);	
 	n3 = (int)(*l3);
 	con = htonl(n3);
 	send(bob, &con, 4, 0);
@@ -175,7 +175,7 @@ int main(int argc, char** argv)
 	printf("sent!\n");
 
 
-	fscanf(ciph, "%d\n", l4);	
+	fscanf(ciph, "%d", l4);	
 	n4 = (int)(*l4);
 	con = htonl(n4);
 	send(bob, &con, 4, 0);

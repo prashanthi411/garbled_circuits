@@ -85,6 +85,7 @@ int main(){
 	//XORing random numbers to generate keys for AES
 	mpz_xor(key1, a0, b0);
 	mpz_ior(key1, key1, key_len); //bitwise or with key_len so that the length is always 128 bits
+	gmp_printf("key: %Zd\n", key1);
 	mpz_xor(key2, a0, b1);
 	mpz_ior(key2, key2, key_len);
 	mpz_xor(key3, a1, b0);
