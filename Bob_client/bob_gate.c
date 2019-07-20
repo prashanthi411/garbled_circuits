@@ -85,28 +85,28 @@ int main(){
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e1, 48);
-	printf("unpadding e1\n");
+	printf("unpadding e1...\n");
 	e1 = de_pad(e1);
 	printf("decrypted e1: %s\n", e1);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e2, 48);
-	printf("unpadding e2\n");
+	printf("unpadding e2...\n");
 	e2 = de_pad(e2);
 	printf("decrypted e2: %s\n", e2);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e3, 48);
-	printf("unpadding e3\n");
+	printf("unpadding e3...\n");
 	e3 = de_pad(e3);
 	printf("decrypted e3: %s\n", e3);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e4, 48);
-	printf("unpadding e4\n");
+	printf("unpadding e4...\n");
 	e4 = de_pad(e4);
 	printf("decrypted e4: %s\n", e4);
 
