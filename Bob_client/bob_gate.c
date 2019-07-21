@@ -11,7 +11,7 @@
 #define KEY_LENGTH 128
 
 int main(){
-	int output,n1, n2, n3, n4;
+	int output;
 	struct AES_ctx* ctx;
 	ctx = (struct AES_ctx*)malloc(sizeof(struct AES_ctx));
 
@@ -21,6 +21,11 @@ int main(){
 	char *h_op0 = malloc(45*sizeof(char));
 	char *h_op1 = malloc(45*sizeof(char));
 
+	int n1, n2, n3, n4, *l1, *l2, *l3, *l4;
+	l1 = (int*)malloc(sizeof(int));
+	l2 = (int*)malloc(sizeof(int));
+	l3 = (int*)malloc(sizeof(int));
+	l4 = (int*)malloc(sizeof(int));
 
 	//reading from files
 	ciph = fopen("ciph.txt", "r");
@@ -29,6 +34,7 @@ int main(){
 	al_input = fopen("al_input.txt", "r");
 	message = fopen("bob_message.txt", "r");
 	testhash = fopen("testhash.txt", "w");
+	FILE *anothertest = fopen("anothertest.txt", "w");
 
 	mpz_t a, b, k, temp, key_len; //alice's input key: a ; bob's input key: b.
 	mpz_init(a);
@@ -50,41 +56,46 @@ int main(){
 	printf("key: %s\n", key);
 
 	//Scanning encrypted gates from file ciph
-	fscanf(ciph, "%d", &n1);
-	e1=(char *)malloc((n1+1)*sizeof(char));
+	fscanf(ciph, "%d\n", l1);	
+	n1 = (int)(*l1);
+	e1 = (char*)malloc((n1+2)*sizeof(char));
 	for (int i = 0; i < n1; ++i)
 	{
 		e1[i] = fgetc(ciph);
 	}
-	fprintf(ciph, "%d\n", n1);
-	fprintf(ciph, "%s\n", e1);
+	fprintf(anothertest, "%d\n", n1);
+	fprintf(anothertest, "%s\n", e1);
 
-	fscanf(ciph, "%d", &n2);
-	e2=(char *)malloc((n2+1)*sizeof(char));
+	fscanf(ciph, "%d\n", l2);	
+	n2 = (int)(*l2);
+	e2 = (char*)malloc((n2+2)*sizeof(char));
 	for (int i = 0; i < n2; ++i)
 	{
 		e2[i] = fgetc(ciph);
 	}
-	fprintf(ciph, "%d\n", n2);
-	fprintf(ciph, "%s\n", e2);
+	fprintf(anothertest, "%d\n", n2);
+	fprintf(anothertest, "%s\n", e2);
 
-	fscanf(ciph, "%d", &n3);
-	e3=(char *)malloc((n3+1)*sizeof(char));
+	fscanf(ciph, "%d\n", l3);	
+	n3 = (int)(*l3);
+	e3 = (char*)malloc((n3+2)*sizeof(char));
 	for (int i = 0; i < n3; ++i)
 	{
 		e3[i] = fgetc(ciph);
 	}
-	fprintf(ciph, "%d\n", n3);
-	fprintf(ciph, "%s\n", e3);
+	fprintf(anothertest, "%d\n", n3);
+	fprintf(anothertest, "%s\n", e3);
 
-	fscanf(ciph, "%d", &n4);
-	e4=(char *)malloc((n4+1)*sizeof(char));
+	fscanf(ciph, "%d\n", l4);	
+	n4 = (int)(*l4);
+	e4 = (char*)malloc((n4+2)*sizeof(char));
 	for (int i = 0; i < n4; ++i)
 	{
 		e4[i] = fgetc(ciph);
 	}
-	fprintf(ciph, "%d\n", n4);
-	fprintf(ciph, "%s\n", e4);
+	fprintf(anothertest, "%d\n", n4);
+	fprintf(anothertest, "%s\n", e4);
+
 
 
 	char *iniv = (char*)malloc(20*sizeof(char));
@@ -93,15 +104,17 @@ int main(){
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
-	AES_CBC_decrypt_buffer(ctx, e1, n1);
+	AES_CBC_decrypt_buffer(ctx, e1, 48);
 	printf("unpadding e1\n");
+	fprintf(anothertest, "%s\n", e1);
 	e1 = de_pad(e1);
 	printf("%s\n", e1);
 
-	AES_init_ctx(ctx, key);
+/*	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e2, n2);
 	printf("unpadding e2\n");
+	fprintf(anothertest, "%s\n", e2);
 	e2 = de_pad(e2);
 	printf("%s\n", e2);
 
@@ -109,6 +122,7 @@ int main(){
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e3, n3);
 	printf("unpadding e3\n");
+	fprintf(anothertest, "%s\n", e3);
 	e3 = de_pad(e3);
 	printf("%s\n", e3);
 
@@ -116,10 +130,11 @@ int main(){
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e4, n4);
 	printf("unpadding e4\n");
+	fprintf(anothertest, "%s\n", e4);
 	e4 = de_pad(e4);
-	printf("%s\n", e4);
+	printf("%s\n", e4);*/
 
-
+/*
 	fscanf(hash, "%d", &n1);
 	for (int i = 0; i < n1; ++i)
 	{
@@ -179,5 +194,5 @@ int main(){
 	else{
 		printf("Alice is probably fooling you!\n");
 	}
-
+*/
 }

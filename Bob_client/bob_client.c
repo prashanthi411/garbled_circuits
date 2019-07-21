@@ -10,6 +10,7 @@
 #include <sys/wait.h> /* for wait */
 #include<netinet/in.h>
 #define BUFFER_SIZE 350
+
 int main(int argc, char** argv)
 {
 	int alice, bob;
@@ -45,9 +46,9 @@ int main(int argc, char** argv)
 
 	printf("Receiving iv from Alice...\n");
 	recv(alice, buffer, BUFFER_SIZE, 0);    //A0
-	fprintf(initvec, "%s\n", buffer);
+	fprintf(initvec, "%s", buffer);
 	bzero(buffer, strlen(buffer));
-	printf("iv received....\n");\
+	printf("iv received...\n");
 	fclose(initvec);
 
 
@@ -273,11 +274,11 @@ int main(int argc, char** argv)
 	if(pid==0)
 	{
 		//child process bob_gate
-		static char *argv[]={"bob_gate", NULL};
+		static char *argv[] = {"bob_gate", NULL};
 		execv("bob_gate", argv);
 		exit(-1);
 	}
 	wait(NULL);
 
-	printf("bob gate has been executed\n");
+	//printf("bob gate has been executed\n");
 }
