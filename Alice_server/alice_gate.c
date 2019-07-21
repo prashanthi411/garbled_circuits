@@ -3,9 +3,9 @@
 #include<stdlib.h> 
 #include<stdint.h>
 #include<string.h>
-#include "../aes.h"
-#include "../aes.c"
-#include "../padding.h"
+#include "aes.h"
+#include "aes.c"
+#include "padding.h"
 #include "sha3.c"
 
 #define KEY_LENGTH 128
@@ -25,6 +25,8 @@ int main(){
 	ctx = (struct AES_ctx*)malloc(sizeof(struct AES_ctx));
 	mpz_t a0, b0, a1, b1, c0, c1, key1, key2, key3, key4, iv, temp1, temp2, key_len, iv_len;
 	char *op_0, *op_1, *k1, *k2, *k3, *k4, *iniv;
+	//int n1, n2, n3, n4;
+
 	mpz_init(a0);
 	mpz_init(a1);
 	mpz_init(b0);
@@ -122,9 +124,10 @@ int main(){
 	//encrypting using key1
 	op_0 = pad(op_0);
 //	printf("op_0 : %s\n", op_0);
+	len = strlen(op_0);
 	AES_init_ctx(ctx, k1);
 	AES_ctx_set_iv(ctx, iniv);
-	AES_CBC_encrypt_buffer(ctx, op_0, 48);	
+	AES_CBC_encrypt_buffer(ctx, op_0, len);	
 //	printf("op_0: %s\n", op_0);
 	len = strlen(op_0);
 	fprintf(ciph, "%d\n", len);
@@ -133,9 +136,10 @@ int main(){
 	//encrypting using key2
 	mpz_get_str(op_0, 10, c0);
 	op_0 = pad(op_0);
+	len = strlen(op_0);
 	AES_init_ctx(ctx, k2);
 	AES_ctx_set_iv(ctx, iniv);
-	AES_CBC_encrypt_buffer(ctx, op_0, 48);
+	AES_CBC_encrypt_buffer(ctx, op_0, len);
 //	printf("op_0: %s\n", op_0);
 	len = strlen(op_0);
 	fprintf(ciph, "%d\n", len);
@@ -144,9 +148,10 @@ int main(){
 	//encrypting using key3
 	mpz_get_str(op_0, 10, c0);
 	op_0 = pad(op_0);
+	len = strlen(op_0);
 	AES_init_ctx(ctx, k3);
 	AES_ctx_set_iv(ctx, iniv);
-	AES_CBC_encrypt_buffer(ctx, op_0, 48);
+	AES_CBC_encrypt_buffer(ctx, op_0, len);
 //	printf("op_0: %s\n", op_0);
 	len = strlen(op_0);
 	fprintf(ciph, "%d\n", len);
@@ -154,9 +159,10 @@ int main(){
 
 	//encrypting using key4
 	op_1 = pad(op_1);
+	len = strlen(op_0);
 	AES_init_ctx(ctx, k4);
 	AES_ctx_set_iv(ctx, iniv);
-	AES_CBC_encrypt_buffer(ctx, op_1, 48);
+	AES_CBC_encrypt_buffer(ctx, op_1, len);
 //	printf("op_1: %s\n", op_1);
 	len = strlen(op_1);
 	fprintf(ciph, "%d\n", len);
@@ -165,8 +171,10 @@ int main(){
 	//send the above encryptions to Bob -- iv, four encryptions, hash of op_0 and op_1
 	mpz_get_str(op_0, 10, c0);
 	mpz_get_str(op_1, 10, c1); 
-	sha3(op_0, 39, op_0, 39);
-	sha3(op_1, 39, op_1, 39);
+	len = strlen(op_0);
+	sha3(op_0, len, op_0, 39);
+	len = strlen(op_0);
+	sha3(op_1, len, op_1, 39);
 	printf("length of op_0 after sha3: %ld\n", strlen(op_0));
 	printf("length of op_1 after sha3: %ld\n", strlen(op_1));
 	fprintf(hash, "%ld\n", strlen(op_0));

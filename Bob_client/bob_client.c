@@ -10,7 +10,6 @@
 #include <sys/wait.h> /* for wait */
 #include<netinet/in.h>
 #define BUFFER_SIZE 350
-#define small_buf 100
 int main(int argc, char** argv)
 {
 	int alice, bob;
@@ -71,8 +70,9 @@ int main(int argc, char** argv)
 	recv(alice, buffer, n, 0);    //A1 //the problem's here, in the size1
 	printf("%s\n", buffer);
 	printf("received!\n");
-	fprintf(ciph, "%s\n", buffer);
+	fprintf(ciph, "%s", buffer);
 	bzero(buffer, strlen(buffer));
+	fprintf(ciph, "\n");
 
 	recv(alice, &n, 4, 0);
 	n = ntohl(n);
@@ -82,8 +82,9 @@ int main(int argc, char** argv)
 	recv(alice, buffer, n, 0);    //A2 //the problem's here, in the size1
 	printf("%s\n", buffer);
 	printf("received!\n");
-	fprintf(ciph, "%s\n", buffer);
+	fprintf(ciph, "%s", buffer);
 	bzero(buffer, strlen(buffer));
+	fprintf(ciph, "\n");
 
 	recv(alice, &n, 4, 0);
 	n = ntohl(n);
@@ -93,19 +94,21 @@ int main(int argc, char** argv)
 	recv(alice, buffer, n, 0);    //A3 //the problem's here, in the size1
 	printf("%s\n", buffer);
 	printf("received!\n");
-	fprintf(ciph, "%s\n", buffer);
+	fprintf(ciph, "%s", buffer);
 	bzero(buffer, strlen(buffer));
+	fprintf(ciph, "\n");
 
 	recv(alice, &n, 4, 0);
 	n = ntohl(n);
 	printf("n4= %d\n", n);
 	fprintf(ciph, "%d\n", n);
 
-	recv(alice, buffer, n, 0);    //A4 //the problem's here, in the size1
-	printf("%s\n", buffer);
+	recv(alice, buffer, n, 0);    //A4 
+	printf("%s", buffer);
 	printf("received!\n");
 	fprintf(ciph, "%s\n", buffer);
 	bzero(buffer, strlen(buffer));
+	fprintf(ciph, "\n");
 
 	fclose(ciph);
 
@@ -125,6 +128,7 @@ int main(int argc, char** argv)
 	n = ntohl(n);
 	printf("n4= %d\n", n);
 	recv(alice, buffer, n, 0);    //A5
+	fprintf(hash, "%d\n", n);
 	fprintf(hash, "%s", buffer);
 	bzero(buffer, strlen(buffer));
 
@@ -134,12 +138,13 @@ int main(int argc, char** argv)
 	n = ntohl(n);
 	printf("n4= %d\n", n);
 	recv(alice, buffer, n, 0);    //A6
+	fprintf(hash, "%d\n", n);
 	fprintf(hash, "%s", buffer);
 	bzero(buffer, strlen(buffer));
 
 	fclose(hash);
 
-	printf("Hashes received....\n");
+	printf("Hashes received...\n");
 
 
 	/****************************Receiving Alice's input label********************************/
