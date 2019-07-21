@@ -68,7 +68,6 @@ int main(int argc, char** argv)
 	fprintf(ciph, "%d\n", n);
 	
 	recv(alice, buffer, n, 0);    //A1 //the problem's here, in the size1
-	printf("%s\n", buffer);
 	fprintf(ciph, "%s", buffer);
 	bzero(buffer, strlen(buffer));
 	fprintf(ciph, "\n");
@@ -78,7 +77,6 @@ int main(int argc, char** argv)
 	fprintf(ciph, "%d\n", n);
 	
 	recv(alice, buffer, n, 0);    //A2 //the problem's here, in the size1
-	printf("%s\n", buffer);
 	fprintf(ciph, "%s", buffer);
 	bzero(buffer, strlen(buffer));
 	fprintf(ciph, "\n");
@@ -88,7 +86,6 @@ int main(int argc, char** argv)
 	fprintf(ciph, "%d\n", n);
 
 	recv(alice, buffer, n, 0);    //A3 //the problem's here, in the size1
-	printf("%s\n", buffer);
 	fprintf(ciph, "%s", buffer);
 	bzero(buffer, strlen(buffer));
 	fprintf(ciph, "\n");
@@ -98,7 +95,6 @@ int main(int argc, char** argv)
 	fprintf(ciph, "%d\n", n);
 
 	recv(alice, buffer, n, 0);    //A4 
-	printf("%s", buffer);
 	fprintf(ciph, "%s\n", buffer);
 	bzero(buffer, strlen(buffer));
 	fprintf(ciph, "\n");
