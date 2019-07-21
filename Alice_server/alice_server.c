@@ -114,9 +114,6 @@ int main(int argc, char** argv)
 	fscanf(initvec, "%s", iniv);
 	send(bob, iniv, strlen(iniv), 0);    //A0
 	bzero(iniv, strlen(iniv));
-	/*int temp;
-	bzero(iniv, strlen(iniv));
-	fclose(initvec);*/
 	
 
 /*********************************************************/
@@ -206,9 +203,7 @@ int main(int argc, char** argv)
 	}
 	send(bob, h_op1, n1, 0);     //A6
 
-	/*printf("length of op_0 when read fully from file: %d\n", strlen(h_op0));
-	printf("length of op_1 when read fully from file: %d\n", strlen(h_op1));
-	*/printf("Sending the hashes of encrypted outputs...\n");
+	printf("Sending the hashes of encrypted outputs...\n");
 
 	fclose(hash);
 
@@ -227,11 +222,9 @@ int main(int argc, char** argv)
 	fscanf(blabel, "%s", b_1);
 	if(input == 0){
 		send(bob, a_0, strlen(a_0), 0);    //A7
-		//printf("a0: %s\n", a_0);
 	}
 	else{
 		send(bob, a_1, strlen(a_1), 0);    //A7
-		//printf("a1: %s\n", a_1);
 	}
 
 	fclose(alabel);
