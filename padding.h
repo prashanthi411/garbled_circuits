@@ -18,6 +18,7 @@ char * pad(char* plaintext){
 	}
 	padded[length+pad_value] = '\0';
 	free(plaintext);
+	printf("padded %s\n", padded);
 	return padded;
 }
 
@@ -30,9 +31,13 @@ char *de_pad(char* plaintext){
 	pad_value = ((int)((char)plaintext[length-1]))-64;
 	//printf("length-pad_value = %d\n", length-pad_value);
 	unpadded =  (char *)malloc((length-pad_value)*sizeof(char));
-	for (int i=0; i<length-pad_value; i++){
-		unpadded[i] = plaintext[i]; 
+	if(length-pad_value>0){
+		for (int i=0; i<length-pad_value; i++){
+			unpadded[i] = plaintext[i]; 
 	}
 	free(plaintext);
+	printf("unpadded: %s\n", unpadded);
 	return unpadded;
+	}
+
 }

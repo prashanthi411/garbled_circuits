@@ -3,10 +3,10 @@
 #include<stdlib.h> 
 #include<stdint.h>
 #include<string.h>
-#include "aes.h"
-#include "aes.c"
-#include "padding.h"
-#include "sha3.c"
+#include "../aes.h"
+#include "../aes.c"
+#include "../padding.h"
+#include "../sha3.c"
 
 #define KEY_LENGTH 128
 
@@ -53,7 +53,7 @@ int main(){
 	mpz_ior(k, k, key_len); //ensuring it's 128 bits
 	mpz_get_str(key, 10, k); //converting key to string
 
-	printf("key: %s\n", key);
+	//printf("key: %s\n", key);
 
 	//Scanning encrypted gates from file ciph
 	fscanf(ciph, "%d\n", l1);	
@@ -96,58 +96,40 @@ int main(){
 	fprintf(anothertest, "%d\n", n4);
 	fprintf(anothertest, "%s\n", e4);
 
-
-
 	char *iniv = (char*)malloc(20*sizeof(char));
 	fscanf(initvec, "%s", iniv);
-	printf("iniv: %s\n", iniv);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
-	AES_CBC_decrypt_buffer(ctx, e1, 48);
-	printf("unpadding e1\n");
-	fprintf(anothertest, "%s\n", e1);
+	AES_CBC_decrypt_buffer(ctx, e1, n1);
 	e1 = de_pad(e1);
-	printf("%s\n", e1);
 
-/*	AES_init_ctx(ctx, key);
+	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e2, n2);
-	printf("unpadding e2\n");
-	fprintf(anothertest, "%s\n", e2);
 	e2 = de_pad(e2);
-	printf("%s\n", e2);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e3, n3);
-	printf("unpadding e3\n");
-	fprintf(anothertest, "%s\n", e3);
 	e3 = de_pad(e3);
-	printf("%s\n", e3);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_decrypt_buffer(ctx, e4, n4);
-	printf("unpadding e4\n");
-	fprintf(anothertest, "%s\n", e4);
 	e4 = de_pad(e4);
-	printf("%s\n", e4);*/
 
-/*
-	fscanf(hash, "%d", &n1);
+
+	fscanf(hash, "%d\n", &n1);
 	for (int i = 0; i < n1; ++i)
 	{
 		h_op0[i] = fgetc(hash);
 	}
-	fscanf(hash, "%d", &n1);
+	fscanf(hash, "%d\n", &n1);
 	for (int i = 0; i < n1; ++i)
 	{
 		h_op1[i] = fgetc(hash);
 	}
-
-	fprintf(testhash, "%s\n", h_op0);
-	fprintf(testhash, "%s", h_op1);
 
 	sha3(e1, 39, e1, 39);
 	sha3(e2, 39, e2, 39);
@@ -161,38 +143,38 @@ int main(){
 
 	if(strcmp(e1, h_op0)==0){
 		output = 0;
-		printf("e1; Output is: %d\n", output);
+		printf("It's e1: Output is: %d\n", output);
 	}
 	else if(strcmp(e1, h_op1)==0){
 		output = 1;
-		printf("e1; Output is: %d\n", output);
+		printf("It's e1: Output is: %d\n", output);
 	}
 	else if(strcmp(e2, h_op0)==0){
 		output = 0;
-		printf("e2; Output is: %d\n", output);
+		printf("It's e2: Output is: %d\n", output);
 	}
 	else if(strcmp(e2, h_op1)==0){
 		output = 1;
-		printf("e2; Output is: %d\n", output);
+		printf("It's e2: Output is: %d\n", output);
 	}
 	else if(strcmp(e3, h_op0)==0){
 		output = 0;
-		printf("e3; Output is: %d\n", output);
+		printf("It's e3: Output is: %d\n", output);
 	}
 	else if(strcmp(e3, h_op1)==0){
 		output = 1;
-		printf("e3; Output is: %d\n", output);
+		printf("It's e3: Output is: %d\n", output);
 	}
 	else if(strcmp(e4, h_op0)==0){
 		output = 0;
-		printf("e4; Output is: %d\n", output);
+		printf("It's e4: Output is: %d\n", output);
 	}
 	else if(strcmp(e4, h_op1)==0){
 		output = 1;
-		printf("e4; Output is: %d\n", output);
+		printf("It's e4: Output is: %d\n", output);
 	}
 	else{
 		printf("Alice is probably fooling you!\n");
 	}
-*/
+
 }

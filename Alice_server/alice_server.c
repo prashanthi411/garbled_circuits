@@ -112,7 +112,6 @@ int main(int argc, char** argv)
 	iniv = (char*)malloc(20*sizeof(char));
 	initvec = fopen("initvec.txt", "r");
 	fscanf(initvec, "%s", iniv);
-	strcat(iniv, "\n");
 	send(bob, iniv, strlen(iniv), 0);    //A0
 	bzero(iniv, strlen(iniv));
 	/*int temp;
@@ -139,10 +138,7 @@ int main(int argc, char** argv)
 	{
 		e1[i] = fgetc(ciph);
 	}
-	printf("e1: %s\n", e1);
-	printf("length of e1: %ld\n", strlen(e1));
 	send(bob, e1, n1, 0);   //A1
-	printf("sent!\n");
 
 
 	fscanf(ciph, "%d\n", l2);	
@@ -154,10 +150,7 @@ int main(int argc, char** argv)
 	{
 		e2[i] = fgetc(ciph);
 	}
-	printf("e2: %s\n", e2);
-	printf("length of e2: %ld\n", strlen(e2));
 	send(bob, e2, n2, 0);   //A2
-	printf("sent!\n");
 		
 
 	fscanf(ciph, "%d\n", l3);	
@@ -169,11 +162,7 @@ int main(int argc, char** argv)
 	{
 		e3[i] = fgetc(ciph);
 	}
-	printf("e3: %s\n", e3);
-	printf("length of e3: %ld\n", strlen(e3));
 	send(bob, e3, n3, 0);   //A3
-	printf("sent!\n");
-
 
 	fscanf(ciph, "%d\n", l4);	
 	n4 = (int)(*l4);
@@ -184,10 +173,7 @@ int main(int argc, char** argv)
 	{
 		e4[i] = fgetc(ciph);
 	}
-	printf("e4: %s\n", e4);
-	printf("length of e4: %ld\n", strlen(e4));
 	send(bob, e4, n4, 0);   //A4
-	printf("sent!\n");
 
 
 	fflush(ciph);
@@ -240,14 +226,12 @@ int main(int argc, char** argv)
 	fscanf(blabel, "\n");
 	fscanf(blabel, "%s", b_1);
 	if(input == 0){
-		strcat(a_0, "\n");
 		send(bob, a_0, strlen(a_0), 0);    //A7
-		printf("a0: %s\n", a_0);
+		//printf("a0: %s\n", a_0);
 	}
 	else{
-		strcat(a_1, "\n");
 		send(bob, a_1, strlen(a_1), 0);    //A7
-		printf("a1: %s\n", a_1);
+		//printf("a1: %s\n", a_1);
 	}
 
 	fclose(alabel);
@@ -273,7 +257,6 @@ int main(int argc, char** argv)
 	rndm = fopen("randomx.txt", "r");
 
 	fscanf(rndm, "%s", x_0);
-	printf("strlen(x_0): %d\n", strlen(x_0));
 	con = htonl(strlen(x_0));
 	send(bob, &con, 4, 0);
 	send(bob, x_0, strlen(x_0), 0);    //A8
@@ -292,7 +275,6 @@ int main(int argc, char** argv)
 	int convert, n;
 	recv(bob, &convert, 4, 0);
 	n = ntohl(convert);
-	printf("n = %d\n", n);
 	recv(bob, c, n, 0);    //B1
 	fprintf(bob_c, "%s", c);
 	bzero(c, strlen(c));
