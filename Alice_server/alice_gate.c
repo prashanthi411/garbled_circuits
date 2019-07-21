@@ -20,6 +20,7 @@ int main(){
 	FILE *ciph = fopen("ciph.txt", "w+");
 	FILE *hash = fopen("hash.txt", "w+");
 	FILE *keys = fopen("keys.txt", "w+"); //temp
+	FILE *anothertest = fopen("anothertest.txt", "w"); //temp
 
 	struct AES_ctx *ctx;
 	ctx = (struct AES_ctx*)malloc(sizeof(struct AES_ctx));
