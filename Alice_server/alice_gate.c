@@ -3,10 +3,10 @@
 #include<stdlib.h> 
 #include<stdint.h>
 #include<string.h>
-#include "aes.h"
-#include "aes.c"
-#include "padding.h"
-#include "sha3.c"
+#include "../aes.h"
+#include "../aes.c"
+#include "../padding.h"
+#include "../sha3.c"
 
 #define KEY_LENGTH 128
 #define IV_LENGTH 16
