@@ -1,7 +1,7 @@
 
 Server:-
 
-Run alice_server from the command line of the device where the gate was created.
+Run alice_server from the command line of the device where the gate is supposed to be created.
 
 A port number should be provided as a command line argument.
 
