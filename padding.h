@@ -14,7 +14,6 @@ char * pad(char* plaintext){
 	}
 	padded[length+pad_value] = '\0';
 	free(plaintext);
-	printf("padded %s\n", padded);
 	return padded;
 }
 

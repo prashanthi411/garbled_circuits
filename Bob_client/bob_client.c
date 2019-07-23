@@ -140,6 +140,7 @@ int main(int argc, char** argv)
 
 	recv(alice, buffer, BUFFER_SIZE, 0);    //A7
 	fprintf(al_input, "%s\n", buffer);
+	printf("The label for Alice's input received from Alice: %s\n", buffer);
 	bzero(buffer, strlen(buffer));
 
 	fclose(al_input);
@@ -245,7 +246,7 @@ int main(int argc, char** argv)
 	//Display the recieved number stored in bob_message.txt
 	message = fopen("bob_message.txt","r");
 	fscanf(message,"%s", buffer);
-	printf("Number recieved from Alice is: %s\n", buffer);
+	printf("The label for Bob's input received from Alice through Oblivious Transfer is: %s\n", buffer);
 
 	//BOB GATE IS EXECUTED HERE FOR THE FINAL COMPUTATION
 	//Fork to execute bob_gate

@@ -1,7 +1,7 @@
 
 Server:-
 
-Run alice_server from the command line of the device that needs to send the numbers.
+Run alice_server from the command line of the device where the gate is supposed to be created.
 
 A port number should be provided as a command line argument.
 
@@ -14,7 +14,7 @@ This will allow the program to accept connections on port number <port> of the d
 
 Client:-
 
-Run bob_client from the command line of the device that needs to receive the numbers.
+Run bob_client from the command line of the device that needs to know the output.
 
 The ip address of the device running the server and the port number it as accepting connections on should be provided as comand line arguments.
 
