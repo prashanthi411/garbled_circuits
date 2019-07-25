@@ -19,8 +19,7 @@ int main(int argc, char** argv)
 	FILE *ciph, *hash, *rndm, *bob_c, *enc_mes, *alabel, *blabel, *initvec;
 	alabel = fopen("alabel.txt", "r+");
 	blabel = fopen("blabel.txt", "r+");
-	FILE *check = fopen("check.txt", "w");
-	
+		
 	//variables for reading encryptions from the file "ciph.txt"
 	char *e1, *e2, *e3, *e4, *h_op0, *h_op1, *iniv; //h_op0 is the hashed encrypted output 0
 	int n1, n2, n3, n4, *l1, *l2, *l3, *l4;
