@@ -210,7 +210,7 @@ int main(int argc, char** argv)
 
 	printf("Sending keys to Bob...\n");
 	//Sending Bob Alice's input labels
-
+	label:
 	printf("Enter your input for gate-1: ");
 	scanf("%d", &input);	
 	fscanf(alabel, "%s", a_0);
@@ -219,11 +219,16 @@ int main(int argc, char** argv)
 	fscanf(blabel, "%s", b_0);
 	fscanf(blabel, "\n");
 	fscanf(blabel, "%s", b_1);
+	
 	if(input == 0){
 		send(bob, a_0, strlen(a_0), 0);    //A7
 	}
-	else{
+	else if(input == 1){
 		send(bob, a_1, strlen(a_1), 0);    //A7
+	}
+	else{
+		printf("Input can only be 1 or 0! \n");
+		goto label;
 	}
 
 	fclose(alabel);
