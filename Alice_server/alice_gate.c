@@ -44,11 +44,11 @@ int main(){
 	mpz_init(temp2);
 	int seed;
 
-	//setting key_len = 2^127
+	//setting key_len = 2^(KEY_LENGTH-1)
 	mpz_set_ui(temp1, 1);
 	mpz_mul_2exp(key_len, temp1, KEY_LENGTH-1);
 
-	//setting iv_len = 2^15
+	//setting iv_len = 2^(IV_LENGTH-1)
 	mpz_set_ui(temp2, 1);
 	mpz_mul_2exp(iv_len, temp2, IV_LENGTH-1);
 

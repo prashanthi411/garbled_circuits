@@ -87,7 +87,8 @@ int main(int argc, char** argv)
 	char *buffer;
 	buffer = (char*)malloc(BUFFER_SIZE*sizeof(char));
 
-
+/*********************************************************/
+	
 	//Fork to execute al_gate
 	pid = fork();
 
