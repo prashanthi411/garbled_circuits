@@ -29,7 +29,7 @@ char* bin_to_char(mpz_t inputstring, int length)
 		//Store obtained bits in the character array
 		string[n++]=mpz_get_ui(char_value);
 		
-		//Remove top 8 bits from bitr=string
+		//Remove top 8 bits from bitstring
 		mpz_set_ui(temp, 1);
 		mpz_mul_2exp(temp, temp, i);
 		mpz_sub_ui(temp,temp,1);
