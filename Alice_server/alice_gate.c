@@ -18,17 +18,23 @@ char* bin_to_char(mpz_t inputstring, int length)
 	mpz_init(temp);
 	mpz_init(bitstring);
 	mpz_set(bitstring,inputstring);
-	
 	int n=0;
+	//Allocating space for character array
 	char *string = (char *) malloc((length/8)*sizeof(char));
 
 	for(int i=length-8;i>=0;i-=8){
+		//Right shift bitstring to get top 8 bits
 		mpz_fdiv_q_2exp(char_value,bitstring,i);
+		
+		//Store obtained bits in the character array
 		string[n++]=mpz_get_ui(char_value);
+		
+		//Remove top 8 bits from bitr=string
 		mpz_set_ui(temp, 1);
 		mpz_mul_2exp(temp, temp, i);
 		mpz_sub_ui(temp,temp,1);
 		mpz_and(bitstring, bitstring, temp);
+	
 	}
 
 	return string;
