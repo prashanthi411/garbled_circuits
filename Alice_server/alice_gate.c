@@ -137,11 +137,11 @@ int main(){
 
 	mpz_get_str(op_0, 10, c0);
 	mpz_get_str(op_1, 10, c1); 
-	mpz_get_str(k1, 10, key1);
-	mpz_get_str(k2, 10, key2); 
-	mpz_get_str(k3, 10, key3);
-	mpz_get_str(k4, 10, key4); 
-	mpz_get_str(iniv, 10, iv); 
+	k1 = bin_to_char(key1,KEY_LENGTH);
+	k2 = bin_to_char(key2,KEY_LENGTH);
+	k3 = bin_to_char(key3,KEY_LENGTH);
+	k4 = bin_to_char(key4,KEY_LENGTH);
+	iniv = bin_to_char(iv, IV_LENGTH); 
 
 	/**********Writing keys to file***********/
 
