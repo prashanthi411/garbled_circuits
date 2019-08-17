@@ -10,6 +10,31 @@
 
 #define KEY_LENGTH 128
 #define IV_LENGTH 16
+//Converts a given bitstring to a character array of equivalent binary value
+char* bin_to_char(mpz_t inputstring, int length)
+{
+	mpz_t char_value,temp,bitstring;
+	mpz_init(char_value);
+	mpz_init(temp);
+	mpz_init(bitstring);
+	mpz_set(bitstring,inputstring);
+	
+	int n=0;
+	char *string = (char *) malloc((length/8)*sizeof(char));
+
+	for(int i=length-8;i>=0;i-=8){
+		mpz_fdiv_q_2exp(char_value,bitstring,i);
+		string[n++]=mpz_get_ui(char_value);
+		mpz_set_ui(temp, 1);
+		mpz_mul_2exp(temp, temp, i);
+		mpz_sub_ui(temp,temp,1);
+		mpz_and(bitstring, bitstring, temp);
+	}
+
+	return string;
+
+}
+
 
 int main(){
 	//Files to write the randomly generated keys
