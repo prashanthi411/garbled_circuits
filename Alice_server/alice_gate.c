@@ -10,6 +10,7 @@
 
 #define KEY_LENGTH 128
 #define IV_LENGTH 16
+
 //Converts a given bitstring to a character array of equivalent binary value
 char* bin_to_char(mpz_t inputstring, int length)
 {
@@ -20,21 +21,22 @@ char* bin_to_char(mpz_t inputstring, int length)
 	mpz_set(bitstring,inputstring);
 	int n=0;
 	//Allocating space for character array
-	char *string = (char *) malloc((length/8)*sizeof(char));
+	char* string = (char *) malloc((length/8)*sizeof(char));
 
-	for(int i=length-8;i>=0;i-=8){
-		//Right shift bitstring to get top 8 bits
-		mpz_fdiv_q_2exp(char_value,bitstring,i);
+	mpz_set_ui(temp, 1);
+	mpz_mul_2exp(temp, temp, 8);
+	mpz_sub_ui(temp,temp,1);
+
+	for(int i=length;i>0;i-=8){
+		//Extract bottom 8 bits from bitstring
+		mpz_and(char_value, bitstring, temp);
 		
 		//Store obtained bits in the character array
-		string[n++]=mpz_get_ui(char_value);
-		
-		//Remove top 8 bits from bitstring
-		mpz_set_ui(temp, 1);
-		mpz_mul_2exp(temp, temp, i);
-		mpz_sub_ui(temp,temp,1);
-		mpz_and(bitstring, bitstring, temp);
-	
+		string[n]=(char)mpz_get_si(char_value);
+		n++;
+
+		//Remove bottom 8 bits from bitstring
+		mpz_fdiv_q_2exp(bitstring,bitstring,8);
 	}
 
 	return string;
