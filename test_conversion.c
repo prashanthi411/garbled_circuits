@@ -14,22 +14,20 @@ char* bin_to_char(mpz_t inputstring, int length, char* string)
 	//Allocating space for character array
 	//string = (char *) malloc((length/8)*sizeof(char));
 
-	for(int i=length-8;i>=0;i-=8){
+	mpz_set_ui(temp, 1);
+	mpz_mul_2exp(temp, temp, 8);
+	mpz_sub_ui(temp,temp,1);
+
+	for(int i=length;i>0;i-=8){
 		//Extract bottom 8 bits from bitstring
-		mpz_set_ui(temp, 1);
-		mpz_mul_2exp(temp, temp, 8);
-		mpz_sub_ui(temp,temp,1);
 		mpz_and(char_value, bitstring, temp);
 
 		//Store obtained bits in the character array
-		string[n++]=mpz_get_ui(char_value);
+		string[n]=mpz_get_ui(char_value);
+		n++;
 
 		//Remove bottom 8 bits from bitstring
 		mpz_fdiv_q_2exp(bitstring,bitstring,8);
-		
-		
-		
-	
 	}
 
 	return string;
@@ -56,6 +54,11 @@ int main()
 	printf("%s\n", str);
 	//mpz_set_ui(a,66);
 	bin_to_char(a,64,str);
-	printf("%s\n", str);
+	//printf("%s\n", str);
+	for(int i=0;i<8;i++){
+		printf("%c (%d)",str[i],(int)str[i]);
+	}
+
+	printf("\n");
 
 }
