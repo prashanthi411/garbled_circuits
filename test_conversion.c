@@ -3,7 +3,7 @@
 #include <gmp.h>
 
 //Converts a given bitstring to a character array of equivalent binary value
-char* bin_to_char(mpz_t inputstring, int length, unsigned char* string)
+char* bin_to_char(mpz_t inputstring, int length)
 {
 	mpz_t char_value,temp,bitstring;
 	mpz_init(char_value);
@@ -12,6 +12,7 @@ char* bin_to_char(mpz_t inputstring, int length, unsigned char* string)
 	mpz_set(bitstring,inputstring);
 	int n=0;
 	//Allocating space for character array
+	char* string = (char *) malloc((length/8)*sizeof(char));
 	char* test = (char *) malloc((8)*sizeof(char));
 
 	mpz_set_ui(temp, 1);
@@ -40,8 +41,8 @@ char* bin_to_char(mpz_t inputstring, int length, unsigned char* string)
 int main()
 {
 	mpz_t a;
-	unsigned char* str;
-	str = (unsigned char *) malloc(20*sizeof(char));
+	char* str;
+	//str = (unsigned char *) malloc(20*sizeof(char));
 	mpz_init(a);
 	int seed;
 
@@ -53,10 +54,10 @@ int main()
 	gmp_randseed_ui(state, seed);
 
 	mpz_rrandomb(a, state, 64);
-	mpz_get_str(str, 10, a);
-	printf("%s\n", str);
+	//mpz_get_str(str, 10, a);
+	//printf("%s\n", str);
 	//mpz_set_ui(a,66);
-	bin_to_char(a,64,str);
+	str = bin_to_char(a,64);
 	//printf("%s\n", str);
 	for(int i=0;i<8;i++){
 		printf("%c (%d)",str[i],(int)str[i]);
