@@ -62,43 +62,22 @@ int main(int argc, char** argv)
 	/************************Receiving the GARBLED TABLE********************************/	
 	
 	ciph = fopen("ciph.txt", "w");
-
-	int n;
-	recv(alice, &n, 4, 0); //receiving length of each string from alice. 
-	n = ntohl(n);
-	fprintf(ciph, "%d\n" n);
 	
-	recv(alice, buffer, n, 0);    //A1 //the problem's here, in the size1
+	recv(alice, buffer, CIPH_LENGTH, 0);    //A1 //the problem's here, in the size1
 	fprintf(ciph, "%s", buffer);
 	bzero(buffer, strlen(buffer));
-	fprintf(ciph, "\n");
-
-	recv(alice, &n, 4, 0);
-	n = ntohl(n);
-	fprintf(ciph, "%d\n", n);
 	
-	recv(alice, buffer, n, 0);    //A2 //the problem's here, in the size1
+	recv(alice, buffer, CIPH_LENGTH, 0);    //A2 //the problem's here, in the size1
 	fprintf(ciph, "%s", buffer);
 	bzero(buffer, strlen(buffer));
-	fprintf(ciph, "\n");
 
-	recv(alice, &n, 4, 0);
-	n = ntohl(n);
-	fprintf(ciph, "%d\n", n);
-
-	recv(alice, buffer, n, 0);    //A3 //the problem's here, in the size1
+	recv(alice, buffer, CIPH_LENGTH, 0);    //A3 //the problem's here, in the size1
 	fprintf(ciph, "%s", buffer);
 	bzero(buffer, strlen(buffer));
-	fprintf(ciph, "\n");
 
-	recv(alice, &n, 4, 0);
-	n = ntohl(n);
-	fprintf(ciph, "%d\n", n);
-
-	recv(alice, buffer, n, 0);    //A4 
-	fprintf(ciph, "%s\n", buffer);
+	recv(alice, buffer, CIPH_LENGTH, 0);    //A4 
+	fprintf(ciph, "%s", buffer);
 	bzero(buffer, strlen(buffer));
-	fprintf(ciph, "\n");
 
 	fclose(ciph);
 
@@ -114,19 +93,11 @@ int main(int argc, char** argv)
 
 	hash = fopen("hash.txt", "w");
 
-	recv(alice, &n, 4, 0);
-	n = ntohl(n);
-	recv(alice, buffer, n, 0);    //A5
-	fprintf(hash, "%d\n", n);
+	recv(alice, buffer, HASH_LENGTH, 0);    //A5
 	fprintf(hash, "%s", buffer);
 	bzero(buffer, strlen(buffer));
 
-	fprintf(hash, "\n");
-
-	recv(alice, &n, 4, 0);
-	n = ntohl(n);
-	recv(alice, buffer, n, 0);    //A6
-	fprintf(hash, "%d\n", n);
+	recv(alice, buffer, HASH_LENGTH, 0);    //A6
 	fprintf(hash, "%s", buffer);
 	bzero(buffer, strlen(buffer));
 
@@ -138,8 +109,8 @@ int main(int argc, char** argv)
 	/****************************Receiving Alice's input label********************************/
 	
 	al_input = fopen("al_input.txt", "w");
-
-	recv(alice, buffer, BUFFER_SIZE, 0);    //A7
+	/*****Need to receive length of input from alice*****POTENTIAL ISSUE FOR AES-256*******/
+	recv(alice, buffer, LABEL_LENGTH, 0);    //A7
 	fprintf(al_input, "%s\n", buffer);
 	bzero(buffer, strlen(buffer));
 

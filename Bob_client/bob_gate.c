@@ -5,9 +5,6 @@
 #include<string.h>
 #include "../central.h"
 
-
-#define KEY_LENGTH 128
-
 int main(){
 	int output;
 	struct AES_ctx* ctx;
@@ -54,44 +51,32 @@ int main(){
 	//printf("key: %s\n", key);
 
 	//Scanning encrypted gates from file ciph
-	fscanf(ciph, "%d", l1);	
-	n1 = (int)(*l1);
-	e1 = (char*)malloc((n1+2)*sizeof(char));
-	for (int i = 0; i < n1; ++i)
+	e1 = (char*)malloc((CIPH_LENGTH+2)*sizeof(char));
+	for (int i = 0; i < CIPH_LENGTH; ++i)
 	{
 		e1[i] = fgetc(ciph);
 	}
-	fprintf(anothertest, "%d\n", n1);
 	fprintf(anothertest, "%s\n", e1);
 
-	fscanf(ciph, "%d", l2);	
-	n2 = (int)(*l2);
-	e2 = (char*)malloc((n2+2)*sizeof(char));
-	for (int i = 0; i < n2; ++i)
+	e2 = (char*)malloc((CIPH_LENGTH+2)*sizeof(char));
+	for (int i = 0; i < CIPH_LENGTH; ++i)
 	{
 		e2[i] = fgetc(ciph);
 	}
-	fprintf(anothertest, "%d\n", n2);
 	fprintf(anothertest, "%s\n", e2);
 
-	fscanf(ciph, "%d", l3);	
-	n3 = (int)(*l3);
-	e3 = (char*)malloc((n3+2)*sizeof(char));
-	for (int i = 0; i < n3; ++i)
+	e3 = (char*)malloc((CIPH_LENGTH+2)*sizeof(char));
+	for (int i = 0; i < CIPH_LENGTH; ++i)
 	{
 		e3[i] = fgetc(ciph);
 	}
-	fprintf(anothertest, "%d\n", n3);
 	fprintf(anothertest, "%s\n", e3);
 
-	fscanf(ciph, "%d", l4);	
-	n4 = (int)(*l4);
-	e4 = (char*)malloc((n4+2)*sizeof(char));
-	for (int i = 0; i < n4; ++i)
+	e4 = (char*)malloc((CIPH_LENGTH+2)*sizeof(char));
+	for (int i = 0; i < CIPH_LENGTH; ++i)
 	{
 		e4[i] = fgetc(ciph);
 	}
-	fprintf(anothertest, "%d\n", n4);
 	fprintf(anothertest, "%s\n", e4);
 
 	char *iniv = (char*)malloc(20*sizeof(char));
@@ -118,13 +103,12 @@ int main(){
 	e4 = de_pad(e4);
 
 
-	fscanf(hash, "%d", &n1);
-	for (int i = 0; i < n1; ++i)
+	for (int i = 0; i < HASH_LENGTH; ++i)
 	{
 		h_op0[i] = fgetc(hash);
 	}
-	fscanf(hash, "%d", &n1);
-	for (int i = 0; i < n1; ++i)
+	
+	for (int i = 0; i < HASH_LENGTH; ++i)
 	{
 		h_op1[i] = fgetc(hash);
 	}
