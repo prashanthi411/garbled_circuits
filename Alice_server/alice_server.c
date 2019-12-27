@@ -126,7 +126,7 @@ int main(int argc, char** argv)
 
 	ciph = fopen("ciph.txt", "r");
 
-	fscanf(ciph, "%d\n", l1);	
+	fscanf(ciph, "%d", l1);	
 	n1 = (int)(*l1);
 	int con = htonl(n1);
 	send(bob, &con, 4, 0); //sending length of each string to bob.
@@ -138,7 +138,7 @@ int main(int argc, char** argv)
 	send(bob, e1, n1, 0);   //A1
 
 
-	fscanf(ciph, "%d\n", l2);	
+	fscanf(ciph, "%d", l2);	
 	n2 = (int)(*l2);
 	con = htonl(n2);
 	send(bob, &con, 4, 0);
@@ -150,7 +150,7 @@ int main(int argc, char** argv)
 	send(bob, e2, n2, 0);   //A2
 		
 
-	fscanf(ciph, "%d\n", l3);	
+	fscanf(ciph, "%d", l3);	
 	n3 = (int)(*l3);
 	con = htonl(n3);
 	send(bob, &con, 4, 0);
@@ -161,7 +161,7 @@ int main(int argc, char** argv)
 	}
 	send(bob, e3, n3, 0);   //A3
 
-	fscanf(ciph, "%d\n", l4);	
+	fscanf(ciph, "%d", l4);	
 	n4 = (int)(*l4);
 	con = htonl(n4);
 	send(bob, &con, 4, 0);
@@ -181,7 +181,7 @@ int main(int argc, char** argv)
 	//Sending the hashes of op_0 and op_1 to Bob
 	hash = fopen("hash.txt", "r");
 
-	fscanf(hash, "%d\n", l1);
+	fscanf(hash, "%d", l1);
 	n1 = (int)(*l1);
 	con = htonl(n1);
 	send(bob, &con, 4, 0);
@@ -192,7 +192,7 @@ int main(int argc, char** argv)
 	}
 	send(bob, h_op0, n1, 0);    //A5
 
-	fscanf(hash, "%d\n", l2);
+	fscanf(hash, "%d", l2);
 	n2 = (int)(*l2);
 	con = htonl(n2);
 	send(bob, &con, 4, 0);
@@ -215,10 +215,10 @@ int main(int argc, char** argv)
 	printf("Enter your input for gate-1: ");
 	scanf("%d", &input);	
 	fscanf(alabel, "%s", a_0);
-	fscanf(alabel, "\n");
+	//fscanf(alabel, "\n");
 	fscanf(alabel, "%s", a_1);
 	fscanf(blabel, "%s", b_0);
-	fscanf(blabel, "\n");
+	//fscanf(blabel, "\n");
 	fscanf(blabel, "%s", b_1);
 	
 	if(input == 0){

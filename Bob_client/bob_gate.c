@@ -46,7 +46,7 @@ int main(){
 	mpz_set_ui(temp, 1);
 	mpz_mul_2exp(key_len, temp, KEY_LENGTH-1);
 
-	gmp_fscanf(al_input, "%Zd\n", a);
+	gmp_fscanf(al_input, "%Zd", a);
 	gmp_fscanf(message, "%Zd", b);
 
 	mpz_xor(k, a, b); //creating key by xor'ing a and b
@@ -56,7 +56,7 @@ int main(){
 	//printf("key: %s\n", key);
 
 	//Scanning encrypted gates from file ciph
-	fscanf(ciph, "%d\n", l1);	
+	fscanf(ciph, "%d", l1);	
 	n1 = (int)(*l1);
 	e1 = (char*)malloc((n1+2)*sizeof(char));
 	for (int i = 0; i < n1; ++i)
@@ -66,7 +66,7 @@ int main(){
 	fprintf(anothertest, "%d\n", n1);
 	fprintf(anothertest, "%s\n", e1);
 
-	fscanf(ciph, "%d\n", l2);	
+	fscanf(ciph, "%d", l2);	
 	n2 = (int)(*l2);
 	e2 = (char*)malloc((n2+2)*sizeof(char));
 	for (int i = 0; i < n2; ++i)
@@ -76,7 +76,7 @@ int main(){
 	fprintf(anothertest, "%d\n", n2);
 	fprintf(anothertest, "%s\n", e2);
 
-	fscanf(ciph, "%d\n", l3);	
+	fscanf(ciph, "%d", l3);	
 	n3 = (int)(*l3);
 	e3 = (char*)malloc((n3+2)*sizeof(char));
 	for (int i = 0; i < n3; ++i)
@@ -86,7 +86,7 @@ int main(){
 	fprintf(anothertest, "%d\n", n3);
 	fprintf(anothertest, "%s\n", e3);
 
-	fscanf(ciph, "%d\n", l4);	
+	fscanf(ciph, "%d", l4);	
 	n4 = (int)(*l4);
 	e4 = (char*)malloc((n4+2)*sizeof(char));
 	for (int i = 0; i < n4; ++i)
@@ -120,12 +120,12 @@ int main(){
 	e4 = de_pad(e4);
 
 
-	fscanf(hash, "%d\n", &n1);
+	fscanf(hash, "%d", &n1);
 	for (int i = 0; i < n1; ++i)
 	{
 		h_op0[i] = fgetc(hash);
 	}
-	fscanf(hash, "%d\n", &n1);
+	fscanf(hash, "%d", &n1);
 	for (int i = 0; i < n1; ++i)
 	{
 		h_op1[i] = fgetc(hash);
