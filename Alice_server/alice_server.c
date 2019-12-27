@@ -9,13 +9,14 @@
 #include <sys/types.h> /* for pid_t */
 #include <sys/wait.h> /* for wait */
 #include<netinet/in.h>
+#include "../central.h"
 #define BUFFER_SIZE 350
 
 int main(int argc, char** argv)
 {
-	int bob, alice, len, input;
+	int bob, alice, len, input, valid_inp = -1, con;
 	pid_t pid;
-	//char buf1[10], buf2[10], buf3[10], buf4[10];
+	
 	FILE *ciph, *hash, *rndm, *bob_c, *enc_mes, *alabel, *blabel, *initvec;
 	alabel = fopen("alabel.txt", "r+");
 	blabel = fopen("blabel.txt", "r+");
@@ -160,6 +161,7 @@ int main(int argc, char** argv)
 
 
 	//Sending the hashes of op_0 and op_1 to Bob
+
 	hash = fopen("hash.txt", "r");
 	h_op0 = (char*)malloc(HASH_LENGTH*sizeof(char));
 	for (int i = 0; i < HASH_LENGTH; ++i)
@@ -182,28 +184,31 @@ int main(int argc, char** argv)
 /**************************************************************************************************************/
 
 	printf("Sending keys to Bob...\n");
+
 	//Sending Bob Alice's input labels
-	label:
-	printf("Enter your input for gate-1: ");
-	scanf("%d", &input);	
-	fscanf(alabel, "%s", a_0);
-	//fscanf(alabel, "\n");
-	fscanf(alabel, "%s", a_1);
-	fscanf(blabel, "%s", b_0);
-	//fscanf(blabel, "\n");
-	fscanf(blabel, "%s", b_1);
-	
-	if(input == 0)
+	while(valid_inp == -1)
 	{
-		send(bob, a_0, strlen(a_0), 0);    //A7
-	}
-	else if(input == 1)
-	{
-		send(bob, a_1, strlen(a_1), 0);    //A7
-	}
-	else{
-		printf("Input can only be 1 or 0! \n");
-		goto label;
+		printf("Enter your input for gate-1: ");
+		scanf("%d", &input);	
+		fscanf(alabel, "%s", a_0);
+		fscanf(alabel, "%s", a_1);
+		fscanf(blabel, "%s", b_0);
+		fscanf(blabel, "%s", b_1);
+		
+		if(input == 0)
+		{
+			send(bob, a_0, LABEL_LENGTH, 0);    //A7
+			valid_inp = 1;
+		}
+		else if(input == 1)
+		{
+			send(bob, a_1, LABEL_LENGTH, 0);    //A7
+			valid_inp = 1;
+		}
+		else{
+			printf("Input can only be 1 or 0! \n");
+		}
+
 	}
 
 	fclose(alabel);
