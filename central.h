@@ -1,9 +1,11 @@
+//Central header file for definitions, can be split into 2 because bab_client.c only needs the padding functions
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 #include "aes.h"
 #include "aes.c"
 #include "sha3.c"
+#include<math.h>
 
 #define KEY_LENGTH AES_KEYLEN*8 //128-bit key
 #define IV_LENGTH AES_BLOCKLEN //string length 16
