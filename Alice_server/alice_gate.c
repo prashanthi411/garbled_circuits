@@ -4,12 +4,6 @@
 #include<stdint.h>
 #include<string.h>
 #include "../central.h"
-#include<math.h>
-
-#define KEY_LENGTH AES_KEYLEN*8 //128-bit key
-#define IV_LENGTH AES_BLOCKLEN //string length 16
-#define LABEL_LENGTH (int)ceil(log10(pow(2,KEY_LENGTH) - 1)) //Label length(key length in decimal)
-#define CIPH_LENGTH LABEL_LENGTH + (AES_BLOCKLEN - LABEL_LENGTH%AES_BLOCKLEN)
 
 //Converts a given bitstring to a character array of equivalent binary value
 char* bin_to_char(mpz_t inputstring, int length)
