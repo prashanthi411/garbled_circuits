@@ -125,52 +125,33 @@ int main(int argc, char** argv)
 	/*************here, we send e1, e2, e3, e4 in the same order****************************************************/
 
 	ciph = fopen("ciph.txt", "r");
-
-	fscanf(ciph, "%d", l1);	
-	n1 = (int)(*l1);
-	int con = htonl(n1);
-	send(bob, &con, 4, 0); //sending length of each string to bob.
-	e1 = (char*)malloc((n1+2)*sizeof(char));
-	for (int i = 0; i < n1; ++i)
+	e1 = (char*)malloc(CIPH_LENGTH*sizeof(char));
+	for (int i = 0; i < CIPH_LENGTH; ++i)
 	{
 		e1[i] = fgetc(ciph);
 	}
-	send(bob, e1, n1, 0);   //A1
+	send(bob, e1, CIPH_LENGTH, 0);   //A1
 
-
-	fscanf(ciph, "%d", l2);	
-	n2 = (int)(*l2);
-	con = htonl(n2);
-	send(bob, &con, 4, 0);
-	e2 = (char*)malloc((n2+2)*sizeof(char));
-	for (int i = 0; i < n2; ++i)
+	e2 = (char*)malloc(CIPH_LENGTH*sizeof(char));
+	for (int i = 0; i < CIPH_LENGTH; ++i)
 	{
 		e2[i] = fgetc(ciph);
 	}
-	send(bob, e2, n2, 0);   //A2
+	send(bob, e2, CIPH_LENGTH, 0);   //A2
 		
-
-	fscanf(ciph, "%d", l3);	
-	n3 = (int)(*l3);
-	con = htonl(n3);
-	send(bob, &con, 4, 0);
-	e3 = (char*)malloc((n3+2)*sizeof(char));
-	for (int i = 0; i < n3; ++i)
+	e3 = (char*)malloc(CIPH_LENGTH*sizeof(char));
+	for (int i = 0; i < CIPH_LENGTH; ++i)
 	{
 		e3[i] = fgetc(ciph);
 	}
-	send(bob, e3, n3, 0);   //A3
+	send(bob, e3, CIPH_LENGTH, 0);   //A3
 
-	fscanf(ciph, "%d", l4);	
-	n4 = (int)(*l4);
-	con = htonl(n4);
-	send(bob, &con, 4, 0);
-	e4 = (char*)malloc((n4+2)*sizeof(char));
-	for (int i = 0; i < n4; ++i)
+	e4 = (char*)malloc(CIPH_LENGTH*sizeof(char));
+	for (int i = 0; i < CIPH_LENGTH; ++i)
 	{
 		e4[i] = fgetc(ciph);
 	}
-	send(bob, e4, n4, 0);   //A4
+	send(bob, e4, CIPH_LENGTH, 0);   //A4
 
 
 	fflush(ciph);
@@ -180,28 +161,19 @@ int main(int argc, char** argv)
 
 	//Sending the hashes of op_0 and op_1 to Bob
 	hash = fopen("hash.txt", "r");
-
-	fscanf(hash, "%d", l1);
-	n1 = (int)(*l1);
-	con = htonl(n1);
-	send(bob, &con, 4, 0);
-	h_op0 = (char*)malloc((n1+2)*sizeof(char));
-	for (int i = 0; i < n1; ++i)
+	h_op0 = (char*)malloc(HASH_LENGTH*sizeof(char));
+	for (int i = 0; i < HASH_LENGTH; ++i)
 	{
 		h_op0[i] = fgetc(hash);
 	}
-	send(bob, h_op0, n1, 0);    //A5
+	send(bob, h_op0, HASH_LENGTH, 0);    //A5
 
-	fscanf(hash, "%d", l2);
-	n2 = (int)(*l2);
-	con = htonl(n2);
-	send(bob, &con, 4, 0);
-	h_op1 = (char*)malloc((n1+2)*sizeof(char));
-	for (int i = 0; i < n2; ++i)
+	h_op1 = (char*)malloc(HASH_LENGTH*sizeof(char));
+	for (int i = 0; i < HASH_LENGTH; ++i)
 	{
 		h_op1[i] = fgetc(hash);
 	}
-	send(bob, h_op1, n1, 0);     //A6
+	send(bob, h_op1, HASH_LENGTH, 0);     //A6
 
 	printf("Sending the hashes of encrypted outputs...\n");
 
@@ -221,10 +193,12 @@ int main(int argc, char** argv)
 	//fscanf(blabel, "\n");
 	fscanf(blabel, "%s", b_1);
 	
-	if(input == 0){
+	if(input == 0)
+	{
 		send(bob, a_0, strlen(a_0), 0);    //A7
 	}
-	else if(input == 1){
+	else if(input == 1)
+	{
 		send(bob, a_1, strlen(a_1), 0);    //A7
 	}
 	else{

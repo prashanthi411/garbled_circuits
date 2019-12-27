@@ -3,10 +3,7 @@
 #include<stdlib.h> 
 #include<stdint.h>
 #include<string.h>
-#include "../aes.h"
-#include "../aes.c"
-#include "../padding.h"
-#include "../sha3.c"
+#include "../central.h"
 #include<math.h>
 
 #define KEY_LENGTH AES_KEYLEN*8 //128-bit key
@@ -189,8 +186,8 @@ int main()
 	//send the above encryptions to Bob -- iv, four encryptions, hash of op_0 and op_1
 	mpz_get_str(op_0, 10, c0);
 	mpz_get_str(op_1, 10, c1); 
-	sha3(op_0, LABEL_LENGTH, op_0, LABEL_LENGTH);
-	sha3(op_1, LABEL_LENGTH, op_1, LABEL_LENGTH);
+	sha3(op_0, LABEL_LENGTH, op_0, HASH_LENGTH);
+	sha3(op_1, LABEL_LENGTH, op_1, HASH_LENGTH);
 	fprintf(hash, "%s", op_0); //writing only the hash and not hash length now
 	fprintf(hash, "%s", op_1);
 
