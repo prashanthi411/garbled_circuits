@@ -14,7 +14,7 @@
 
 int main(int argc, char** argv)
 {
-	int alice, bob;
+	int alice, bob, n;
 	FILE *ciph, *keys, *initvec, *hash, *al_input, *c_out, *enc_messages, *random, *message;
 
 	//Creating socket Alice
@@ -109,7 +109,7 @@ int main(int argc, char** argv)
 	/****************************Receiving Alice's input label********************************/
 	
 	al_input = fopen("al_input.txt", "w");
-	/*****Need to receive length of input from alice*****POTENTIAL ISSUE FOR AES-256*******/
+	/*****Need to receive length of input from alice*/    /****POTENTIAL ISSUE FOR AES-256*******/
 	recv(alice, buffer, LABEL_LENGTH, 0);    //A7
 	fprintf(al_input, "%s\n", buffer);
 	bzero(buffer, strlen(buffer));
