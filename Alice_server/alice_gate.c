@@ -12,7 +12,7 @@
 #define KEY_LENGTH AES_KEYLEN*8 //128-bit key
 #define IV_LENGTH AES_BLOCKLEN //string length 16
 #define LABEL_LENGTH (int)ceil(log10(pow(2,KEY_LENGTH) - 1)) //Label length(key length in decimal)
-#define CIPH_LENGTH TEMP + (AES_BLOCKLEN - TEMP%AES_BLOCKLEN)
+#define CIPH_LENGTH LABEL_LENGTH + (AES_BLOCKLEN - LABEL_LENGTH%AES_BLOCKLEN)
 
 //Converts a given bitstring to a character array of equivalent binary value
 char* bin_to_char(mpz_t inputstring, int length)
@@ -162,7 +162,7 @@ int main()
 	AES_init_ctx(ctx, k1);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_0, CIPH_LENGTH);	
-	fprintf(ciph, "%s\n", op_0); //writing only the ciphertext (and not ciphertext length) to ciph.txt
+	fprintf(ciph, "%s", op_0); //writing only the ciphertext (and not ciphertext length) to ciph.txt
 
 	//encrypting using key2
 	mpz_get_str(op_0, 10, c0);
@@ -170,7 +170,7 @@ int main()
 	AES_init_ctx(ctx, k2);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_0, CIPH_LENGTH);
-	fprintf(ciph, "%s\n", op_0);
+	fprintf(ciph, "%s", op_0);
 
 	//encrypting using key3
 	mpz_get_str(op_0, 10, c0);
@@ -178,20 +178,20 @@ int main()
 	AES_init_ctx(ctx, k3);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_0, CIPH_LENGTH);
-	fprintf(ciph, "%s\n", op_0);
+	fprintf(ciph, "%s", op_0);
 
 	op_1 = pad(op_1);
 	AES_init_ctx(ctx, k4);
 	AES_ctx_set_iv(ctx, iniv);
 	AES_CBC_encrypt_buffer(ctx, op_1, CIPH_LENGTH);
-	fprintf(ciph, "%s\n", op_1);
+	fprintf(ciph, "%s", op_1);
 
 	//send the above encryptions to Bob -- iv, four encryptions, hash of op_0 and op_1
 	mpz_get_str(op_0, 10, c0);
 	mpz_get_str(op_1, 10, c1); 
 	sha3(op_0, LABEL_LENGTH, op_0, LABEL_LENGTH);
 	sha3(op_1, LABEL_LENGTH, op_1, LABEL_LENGTH);
-	fprintf(hash, "%s\n", op_0); //writing only the hash and not hash length now
+	fprintf(hash, "%s", op_0); //writing only the hash and not hash length now
 	fprintf(hash, "%s", op_1);
 
 	//clearing space for all variables
