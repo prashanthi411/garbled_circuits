@@ -64,18 +64,22 @@ int main(int argc, char** argv)
 	ciph = fopen("ciph.txt", "w");
 	
 	recv(alice, buffer, CIPH_LENGTH, 0);    //A1 //the problem's here, in the size1
+	buffer[CIPH_LENGTH] = '\0';
 	fprintf(ciph, "%s", buffer);
 	bzero(buffer, strlen(buffer));
 	
 	recv(alice, buffer, CIPH_LENGTH, 0);    //A2 //the problem's here, in the size1
+	buffer[CIPH_LENGTH] = '\0';
 	fprintf(ciph, "%s", buffer);
 	bzero(buffer, strlen(buffer));
 
 	recv(alice, buffer, CIPH_LENGTH, 0);    //A3 //the problem's here, in the size1
+	buffer[CIPH_LENGTH] = '\0';
 	fprintf(ciph, "%s", buffer);
 	bzero(buffer, strlen(buffer));
 
 	recv(alice, buffer, CIPH_LENGTH, 0);    //A4 
+	buffer[CIPH_LENGTH] = '\0';
 	fprintf(ciph, "%s", buffer);
 	bzero(buffer, strlen(buffer));
 
@@ -94,10 +98,12 @@ int main(int argc, char** argv)
 	hash = fopen("hash.txt", "w");
 
 	recv(alice, buffer, HASH_LENGTH, 0);    //A5
+	buffer[HASH_LENGTH] = '\0';
 	fprintf(hash, "%s", buffer);
 	bzero(buffer, strlen(buffer));
 
 	recv(alice, buffer, HASH_LENGTH, 0);    //A6
+	buffer[HASH_LENGTH] = '\0';
 	fprintf(hash, "%s", buffer);
 	bzero(buffer, strlen(buffer));
 
