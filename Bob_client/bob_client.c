@@ -9,6 +9,7 @@
 #include <sys/types.h> /* for pid_t */
 #include <sys/wait.h> /* for wait */
 #include<netinet/in.h>
+#include "../central.h"
 #define BUFFER_SIZE 350
 
 int main(int argc, char** argv)

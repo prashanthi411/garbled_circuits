@@ -3,10 +3,8 @@
 #include<stdlib.h> 
 #include<stdint.h>
 #include<string.h>
-#include "../aes.h"
-#include "../aes.c"
-#include "../padding.h"
-#include "../sha3.c"
+#include "../central.h"
+
 
 #define KEY_LENGTH 128
 
