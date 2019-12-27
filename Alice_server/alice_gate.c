@@ -7,9 +7,12 @@
 #include "../aes.c"
 #include "../padding.h"
 #include "../sha3.c"
+#include<math.h>
 
-#define KEY_LENGTH 128
-#define IV_LENGTH 16
+#define KEY_LENGTH AES_KEYLEN*8 //128-bit key
+#define IV_LENGTH AES_BLOCKLEN //string length 16
+#define TEMP (int)ceil(log10(pow(2,KEY_LENGTH) - 1))
+#define CIPH_LENGTH TEMP + (16 - TEMP%16)
 
 //Converts a given bitstring to a character array of equivalent binary value
 char* bin_to_char(mpz_t inputstring, int length)
@@ -45,6 +48,8 @@ char* bin_to_char(mpz_t inputstring, int length)
 
 
 int main(){
+	printf("temp: %d\n", TEMP);
+	printf("ciph length: %d\n", CIPH_LENGTH);
 	//Files to write the randomly generated keys
 	FILE *alabel = fopen("alabel.txt", "w+");
 	FILE *blabel = fopen("blabel.txt", "w+");

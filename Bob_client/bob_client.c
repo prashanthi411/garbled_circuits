@@ -65,7 +65,7 @@ int main(int argc, char** argv)
 	int n;
 	recv(alice, &n, 4, 0); //receiving length of each string from alice. 
 	n = ntohl(n);
-	fprintf(ciph, "%d\n", n);
+	fprintf(ciph, "%d\n" n);
 	
 	recv(alice, buffer, n, 0);    //A1 //the problem's here, in the size1
 	fprintf(ciph, "%s", buffer);
