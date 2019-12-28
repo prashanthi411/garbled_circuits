@@ -207,6 +207,7 @@ int main(int argc, char** argv)
 		}
 		else{
 			printf("Input can only be 1 or 0! \n");
+			valid_inp = -1;
 		}
 
 	}
