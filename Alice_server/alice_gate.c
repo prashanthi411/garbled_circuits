@@ -5,39 +5,6 @@
 #include<string.h>
 #include "../central.h"
 
-//Converts a given bitstring to a character array of equivalent binary value
-char* bin_to_char(mpz_t inputstring, int length)
-{
-	mpz_t char_value,temp,bitstring;
-	mpz_init(char_value);
-	mpz_init(temp);
-	mpz_init(bitstring);
-	mpz_set(bitstring,inputstring);
-	int n=0;
-	//Allocating space for character array
-	char* string = (char *) malloc((length/8)*sizeof(char));
-
-	mpz_set_ui(temp, 1);
-	mpz_mul_2exp(temp, temp, 8);
-	mpz_sub_ui(temp,temp,1);
-
-	for(int i=length;i>0;i-=8){
-		//Extract bottom 8 bits from bitstring
-		mpz_and(char_value, bitstring, temp);
-		
-		//Store obtained bits in the character array
-		string[n]=(char)mpz_get_si(char_value);
-		n++;
-
-		//Remove bottom 8 bits from bitstring
-		mpz_fdiv_q_2exp(bitstring,bitstring,8);
-	}
-
-	return string;
-
-}
-
-
 int main()
 {
 	//Files to write the randomly generated keys
@@ -145,7 +112,7 @@ int main()
 	fprintf(keys, "%s\n", k1);
 	fprintf(keys, "%s\n", k2);
 	fprintf(keys, "%s\n", k3);
-	fprintf(keys, "%s\n", k4);
+	fprintf(keys, "%s", k4);
 
 	/*****************************************/
 	//encrypting using key1

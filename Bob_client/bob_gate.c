@@ -23,13 +23,13 @@ int main(){
 	l4 = (int*)malloc(sizeof(int));
 
 	//reading from files
-	ciph = fopen("ciph.txt", "r");
-	initvec = fopen("initvec.txt", "r");
-	hash = fopen("hash.txt", "r");
-	al_input = fopen("al_input.txt", "r");
-	message = fopen("bob_message.txt", "r");
-	testhash = fopen("testhash.txt", "w");
-	FILE *anothertest = fopen("anothertest.txt", "w");
+	ciph = fopen("ciph.txt", "r+");
+	initvec = fopen("initvec.txt", "r+");
+	hash = fopen("hash.txt", "r+");
+	al_input = fopen("al_input.txt", "r+");
+	message = fopen("bob_message.txt", "r+");
+	testhash = fopen("testhash.txt", "w+");
+	FILE* anothertest = fopen("anothertest.txt", "w+");
 
 	mpz_t a, b, k, temp, key_len; //alice's input key: a ; bob's input key: b.
 	mpz_init(a);
@@ -46,62 +46,74 @@ int main(){
 
 	mpz_xor(k, a, b); //creating key by xor'ing a and b
 	mpz_ior(k, k, key_len); //ensuring it's 128 bits
-	mpz_get_str(key, 10, k); //converting key to string
+	//converting key to string
+	key = bin_to_char(k,KEY_LENGTH);
 
 	//printf("key: %s\n", key);
 
+	
 	//Scanning encrypted gates from file ciph
-	e1 = (char*)malloc((CIPH_LENGTH+2)*sizeof(char));
+	e1 = (char*)malloc((CIPH_LENGTH)*sizeof(char));
+	char *new_e1 = (char*)malloc((CIPH_LENGTH)*sizeof(char));
 	for (int i = 0; i < CIPH_LENGTH; ++i)
 	{
 		e1[i] = fgetc(ciph);
 	}
-	fprintf(anothertest, "%s\n", e1);
+	fprintf(anothertest, "%s", e1);
+	fflush(anothertest);
 
-	e2 = (char*)malloc((CIPH_LENGTH+2)*sizeof(char));
+	e2 = (char*)malloc((CIPH_LENGTH)*sizeof(char));
+	char *new_e2 = (char*)malloc((CIPH_LENGTH)*sizeof(char));
 	for (int i = 0; i < CIPH_LENGTH; ++i)
 	{
 		e2[i] = fgetc(ciph);
 	}
-	fprintf(anothertest, "%s\n", e2);
+	fprintf(anothertest, "%s", e2);
+	fflush(anothertest);
 
-	e3 = (char*)malloc((CIPH_LENGTH+2)*sizeof(char));
+	e3 = (char*)malloc((CIPH_LENGTH)*sizeof(char));
+	char *new_e3 = (char*)malloc((CIPH_LENGTH)*sizeof(char));
 	for (int i = 0; i < CIPH_LENGTH; ++i)
 	{
 		e3[i] = fgetc(ciph);
 	}
-	fprintf(anothertest, "%s\n", e3);
+	fprintf(anothertest, "%s", e3);
+	fflush(anothertest);
 
-	e4 = (char*)malloc((CIPH_LENGTH+2)*sizeof(char));
+	e4 = (char*)malloc((CIPH_LENGTH)*sizeof(char));
+	char *new_e4 = (char*)malloc((CIPH_LENGTH)*sizeof(char));
 	for (int i = 0; i < CIPH_LENGTH; ++i)
 	{
 		e4[i] = fgetc(ciph);
 	}
-	fprintf(anothertest, "%s\n", e4);
+	fprintf(anothertest, "%s", e4);
+	fflush(anothertest);
+
+	fclose(anothertest);
 
 	char *iniv = (char*)malloc(20*sizeof(char));
 	fscanf(initvec, "%s", iniv);
 
+	
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
-	AES_CBC_decrypt_buffer(ctx, e1, n1);
-	e1 = de_pad(e1);
+	AES_CBC_decrypt_buffer(ctx, e1, CIPH_LENGTH);	
+	new_e1 = de_pad(e1);
+	
+	AES_init_ctx(ctx, key);
+	AES_ctx_set_iv(ctx, iniv);
+	AES_CBC_decrypt_buffer(ctx, e2, CIPH_LENGTH);
+	new_e2 = de_pad(e2);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
-	AES_CBC_decrypt_buffer(ctx, e2, n2);
-	e2 = de_pad(e2);
+	AES_CBC_decrypt_buffer(ctx, e3, CIPH_LENGTH);
+	new_e3 = de_pad(e3);
 
 	AES_init_ctx(ctx, key);
 	AES_ctx_set_iv(ctx, iniv);
-	AES_CBC_decrypt_buffer(ctx, e3, n3);
-	e3 = de_pad(e3);
-
-	AES_init_ctx(ctx, key);
-	AES_ctx_set_iv(ctx, iniv);
-	AES_CBC_decrypt_buffer(ctx, e4, n4);
-	e4 = de_pad(e4);
-
+	AES_CBC_decrypt_buffer(ctx, e4, CIPH_LENGTH);
+	new_e4 = de_pad(e4);
 
 	for (int i = 0; i < HASH_LENGTH; ++i)
 	{
@@ -113,50 +125,59 @@ int main(){
 		h_op1[i] = fgetc(hash);
 	}
 
-	sha3(e1, 39, e1, 39);
-	sha3(e2, 39, e2, 39);
-	sha3(e3, 39, e3, 39);
-	sha3(e4, 39, e4, 39);
+	printf("hashing\n");
+	// sha3(new_e1, CIPH_LENGTH, new_e1, 39);
+	// sha3(new_e2, CIPH_LENGTH, new_e2, 39);
+	// sha3(new_e3, CIPH_LENGTH, new_e3, 39);
+	// sha3(new_e4, CIPH_LENGTH, new_e4, 39);
 
 	//printf("e4: %s\n", e4);
 	//fprintf(testhash, "%s\n", e4);
 
 	printf("Computing output...\n");
 
-	if(strcmp(e1, h_op0)==0){
-		output = 0;
-		printf("It's e1: Output is: %d\n", output);
-	}
-	else if(strcmp(e1, h_op1)==0){
-		output = 1;
-		printf("It's e1: Output is: %d\n", output);
-	}
-	else if(strcmp(e2, h_op0)==0){
-		output = 0;
-		printf("It's e2: Output is: %d\n", output);
-	}
-	else if(strcmp(e2, h_op1)==0){
-		output = 1;
-		printf("It's e2: Output is: %d\n", output);
-	}
-	else if(strcmp(e3, h_op0)==0){
-		output = 0;
-		printf("It's e3: Output is: %d\n", output);
-	}
-	else if(strcmp(e3, h_op1)==0){
-		output = 1;
-		printf("It's e3: Output is: %d\n", output);
-	}
-	else if(strcmp(e4, h_op0)==0){
-		output = 0;
-		printf("It's e4: Output is: %d\n", output);
-	}
-	else if(strcmp(e4, h_op1)==0){
-		output = 1;
-		printf("It's e4: Output is: %d\n", output);
-	}
-	else{
-		printf("Alice is probably fooling you!\n");
-	}
+	// if(strcmp(e1, h_op0)==0){
+	// 	output = 0;
+	// 	printf("It's e1: Output is: %d\n", output);
+	// }
+	// else if(strcmp(e1, h_op1)==0){
+	// 	output = 1;
+	// 	printf("It's e1: Output is: %d\n", output);
+	// }
+	// else if(strcmp(e2, h_op0)==0){
+	// 	output = 0;
+	// 	printf("It's e2: Output is: %d\n", output);
+	// }
+	// else if(strcmp(e2, h_op1)==0){
+	// 	output = 1;
+	// 	printf("It's e2: Output is: %d\n", output);
+	// }
+	// else if(strcmp(e3, h_op0)==0){
+	// 	output = 0;
+	// 	printf("It's e3: Output is: %d\n", output);
+	// }
+	// else if(strcmp(e3, h_op1)==0){
+	// 	output = 1;
+	// 	printf("It's e3: Output is: %d\n", output);
+	// }
+	// else if(strcmp(e4, h_op0)==0){
+	// 	output = 0;
+	// 	printf("It's e4: Output is: %d\n", output);
+	// }
+	// else if(strcmp(e4, h_op1)==0){
+	// 	output = 1;
+	// 	printf("It's e4: Output is: %d\n", output);
+	// }
+	// else{
+	// 	printf("Alice is probably fooling you!\n");
+	// }
 
+	// free(e1);
+	// free(new_e1);
+	// free(e2);
+	// free(new_e2);
+	// free(e3);
+	// free(new_e3);
+	// free(e4);
+	// free(new_e4);
 }
