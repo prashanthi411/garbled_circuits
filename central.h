@@ -46,6 +46,10 @@ char *de_pad(char* plaintext)
 		free(plaintext);
 		return unpadded;
 	}
+	else
+	{
+		return plaintext;
+	}
 
 }
 
