@@ -56,7 +56,7 @@ int main(){
 	{
 		e1[i] = fgetc(ciph);
 	}
-	fprintf(anothertest, "%s", e1);
+	fprintf(anothertest, "%s\n", e1);
 	fflush(anothertest);
 
 	e2 = (char*)malloc((CIPH_LENGTH)*sizeof(char));
@@ -65,7 +65,7 @@ int main(){
 	{
 		e2[i] = fgetc(ciph);
 	}
-	fprintf(anothertest, "%s", e2);
+	fprintf(anothertest, "%s\n", e2);
 	fflush(anothertest);
 
 	e3 = (char*)malloc((CIPH_LENGTH)*sizeof(char));
@@ -74,7 +74,7 @@ int main(){
 	{
 		e3[i] = fgetc(ciph);
 	}
-	fprintf(anothertest, "%s", e3);
+	fprintf(anothertest, "%s\n", e3);
 	fflush(anothertest);
 
 	e4 = (char*)malloc((CIPH_LENGTH)*sizeof(char));
@@ -83,7 +83,7 @@ int main(){
 	{
 		e4[i] = fgetc(ciph);
 	}
-	fprintf(anothertest, "%s", e4);
+	fprintf(anothertest, "%s\n", e4);
 	fflush(anothertest);
 
 	fclose(anothertest);
