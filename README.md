@@ -1,3 +1,4 @@
+An efficient implementation of the Yao's garbled circuits protocol in C for a single AND gate. (In the process of fixing some errors)
 
 Server:-
 
